@@ -32,7 +32,10 @@ const RideDetails = async({id}:any) => {
             {data?.status=="go"? <div className="flex flex-col justify-between ">
               <h1 className="font-bold">Gurudwara Sahib</h1>
               <h1 className="font-bold">{data?.location}</h1>
-            </div>:""}
+            </div>:<div className="flex flex-col justify-between ">
+              <h1 className="font-bold">{data?.location}</h1>
+              <h1 className="font-bold">Gurudwara Sahib</h1>
+            </div>}
            
           </div>
           <h1 className=" mt-10 text-emerald-600 text-xl font-bold">
