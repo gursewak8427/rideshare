@@ -1,118 +1,162 @@
 "use client";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const GurudwaraForm = () => {
+  const nav = useRouter();
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
-  
-  const onSubmit = (data: any) => {
-    console.log(data);
+
+  const onSubmit = async (data: any) => {
+    // Enhance data with static fields before submitting
+    data = {
+      ...data,
+      carModel: "Tesla",
+      carImage: "/img/images.jpg",
+      riderImage: "/img/_J5wMgdW_400x400.jpg",
+    };
+
+    try {
+      await axios.post("/api/rides", data);
+      nav.push("/rideslist");
+    } catch (error) {
+      console.error("Error submitting form", error);
+    }
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col justify-between items-center p-3 h-[80vh]">
-          <div className="flex flex-col w-[100%] mt-10 gap-5">
-            
-            {/* Radio buttons for status */}
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center">
-                <input
-                  {...register("status", { required: "Please select a status" })}
-                  value="go"
-                  className="mr-2"
-                  type="radio"
-                  id="go"
-                />
-                <label className="text-sm font-bold" htmlFor="go">
-                  Go to Gurudwara Sahib
-                </label>
-              </div>
-              <div className="flex items-center">
-                <input
-                  {...register("status", { required: "Please select a status" })}
-                  value="back"
-                  className="mr-2"
-                  type="radio"
-                  id="back"
-                />
-                <label className="text-sm font-bold" htmlFor="back">
-                  Back from Gurudwara Sahib
-                </label>
-              </div>
-            </div>
-
-            {/* Location input field */}
-            <div className="flex flex-col">
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col justify-between items-center p-3 h-[80vh]">
+        <div className="flex flex-col w-full mt-10 gap-5">
+          {/* Radio buttons for status */}
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center">
               <input
-                type="text"
-                {...register("location", { required: "Location is required" })}
-                placeholder="Enter Location"
-                className="p-2 outline-none bg-gray-200 rounded-md"
+                {...register("status", { required: "Please select a status" })}
+                value="go"
+                className="mr-2"
+                type="radio"
+                id="go"
+                name="status"
               />
-             
+              <label className="text-sm font-bold" htmlFor="go">
+                Go to Gurudwara Sahib
+              </label>
             </div>
-
-            {/* Select dropdown */}
-            <div className="flex flex-col">
-              <Select {...register("seats", { required: "Please select the number of seats" })}>
-                <SelectTrigger className="w-full bg-gray-200">
-                  <SelectValue placeholder="Number of Seats" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">1</SelectItem>
-                  <SelectItem value="2">2</SelectItem>
-                  <SelectItem value="3">3</SelectItem>
-                  <SelectItem value="4">4</SelectItem>
-                  <SelectItem value="5">5</SelectItem>
-                </SelectContent>
-              </Select>
-              
-            </div>
-
-            {/* Date and Time Inputs */}
-            <div className="flex gap-2">
+            <div className="flex items-center">
               <input
-                className="p-2 outline-none w-[50%] bg-gray-200 rounded-md"
-                type="date"
-                {...register("date", { required: "Please select a date" })}
+                {...register("status", { required: "Please select a status" })}
+                value="back"
+                className="mr-2"
+                type="radio"
+                id="back"
+                name="status"
               />
-            
-              <input
-                className="p-2 outline-none w-[50%] bg-gray-200 rounded-md"
-                type="time"
-                {...register("time", { required: "Please select a time" })}
-              />
-             
+              <label className="text-sm font-bold" htmlFor="back">
+                Back from Gurudwara Sahib
+              </label>
             </div>
+            {errors.status && (
+              <span className="text-red-500 text-xs">
+                {errors.status.message}
+              </span>
+            )}
           </div>
 
-          {/* Submit Button */}
-          <div>
-            <button
-              type="submit"
-              className="py-3 rounded-full px-14 text-white bg-emerald-400 text-md font-bold"
-            >
-              Publish
-            </button>
+          {/* Location input field */}
+          <div className="flex flex-col">
+            <input
+              type="text"
+              {...register("location", { required: "Location is required" })}
+              placeholder="Enter Location"
+              className={`p-2 outline-none bg-gray-200 rounded-md ${
+                errors.location ? "border-red-500 border" : ""
+              }`}
+            />
+            {errors.location && (
+              <span className="text-red-500 text-xs">
+                {errors.location.message}
+              </span>
+            )}
           </div>
+
+          {/* Select dropdown for seats */}
+          <div className="flex flex-col">
+            <Controller
+              name="seats"
+              control={control}
+              rules={{ required: "Please select the number of seats" }}
+              render={({ field }) => (
+                <Select onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full bg-gray-200">
+                    <SelectValue placeholder="Number of Seats" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[1, 2, 3, 4, 5].map((seat) => (
+                      <SelectItem key={seat} value={String(seat)}>
+                        {seat}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.seats && (
+              <span className="text-red-500 text-xs">
+                {errors.seats.message}
+              </span>
+            )}
+          </div>
+
+          {/* Date and Time Inputs */}
+          <div className="flex gap-2">
+            <input
+              type="date"
+              className={`p-2 outline-none w-[50%] bg-gray-200 rounded-md ${
+                errors.date ? "border-red-500 border" : ""
+              }`}
+              {...register("date", { required: "Please select a date" })}
+            />
+            <input
+              type="time"
+              className={`p-2 outline-none w-[50%] bg-gray-200 rounded-md ${
+                errors.time ? "border-red-500 border" : ""
+              }`}
+              {...register("time", { required: "Please select a time" })}
+            />
+          </div>
+          {errors.date && (
+            <span className="text-red-500 text-xs">{errors.date.message}</span>
+          )}
+          {errors.time && (
+            <span className="text-red-500 text-xs">{errors.time.message}</span>
+          )}
         </div>
-      </form>
-    </>
+
+        {/* Submit Button */}
+        <div>
+          <button
+            type="submit"
+            className="py-3 rounded-full px-14 text-white bg-emerald-400 text-md font-bold"
+          >
+            Publish
+          </button>
+        </div>
+      </div>
+    </form>
   );
 };
 

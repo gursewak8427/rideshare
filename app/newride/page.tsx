@@ -1,7 +1,7 @@
 import React from 'react'
 import GurudwaraForm from '../_components/GurudwaraForm'
-
-const page = () => {
+const page = async() => {
+  
   return (
     <GurudwaraForm/>
   )

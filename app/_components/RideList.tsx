@@ -1,6 +1,8 @@
 import React from "react";
 import Header from "./Header";
 import { Search } from "lucide-react";
+import { getrides } from "../../backend/services/rides";
+
 import {
   Select,
   SelectContent,
@@ -13,45 +15,14 @@ import {
 import SingleRide from "./SingleRide";
 import Link from "next/link";
 
-const RideList = () => {
-  const rides = [
-    {
-      location: "Forest Hill,Intersection 2 & 3",
-      date: "10Nov",
-      time: "10:00am",
-      carModel: "Tesla Model Y",
-      seatsAvailable: 3,
-      riderName: "Rattandeep Singh",
-      riderImage: "/img/_J5wMgdW_400x400.jpg",
-      phoneNumber: 9914370682,
-      carImage: "/img/images.jpg",
-    },
-    {
-      location: "Forest Hill,Intersection 2 & 3",
-      date: "10Nov",
-      time: "10:00am",
-      carModel: "Tesla Model Y",
-      seatsAvailable: 3,
-      riderName: "Rattandeep Singh",
-      riderImage: "/img/_J5wMgdW_400x400.jpg",
-      phoneNumber: 9914370682,
-      carImage: "/img/images.jpg",
-    },
-    {
-      location: "Forest Hill,Intersection 2 & 3",
-      date: "10Nov",
-      time: "10:00am",
-      carModel: "Tesla Model Y",
-      seatsAvailable: 3,
-      riderName: "Rattandeep Singh",
-      riderImage: "/img/_J5wMgdW_400x400.jpg",
-      phoneNumber: 9914370682,
-      carImage: "/img/images.jpg",
-    },
-  ];
+const RideList = async () => {
+  const rides = await getrides()
+  
+
   return (
     <>
       <div className="p-2">
+        {/* {JSON.stringify(rides)} */}
         <div className="flex justify-center gap-2 items-center bg-gray-50 p-2 rounded-full border-2 border-gray-300">
           <Search className="text-gray-500" />
           <input
@@ -82,9 +53,9 @@ const RideList = () => {
         <div className="mt-5">
           <div className="flex flex-col gap-2">
             {rides?.map((e, i) => (
-              <Link href={"#"} key={i}>
-                <SingleRide details={e} />
-              </Link>
+            
+                <SingleRide details={e} key={i} />
+              
             ))}
           </div>
         </div>
