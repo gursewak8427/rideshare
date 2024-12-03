@@ -17,7 +17,7 @@ export default function LoginPage() {
     // Handle login logic here
     const response = await axios.post("/api/users/login", { email, password });
     if (response.data.success) {
-      router.replace("/");
+      window.location.href = "/";
     } else {
       alert("Invalid Credentials");
     }

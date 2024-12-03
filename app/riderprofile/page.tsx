@@ -140,7 +140,7 @@ export default function VehicleForm() {
         <button
           onClick={async () => {
             await axios.get("/api/users/logout");
-            router.push("/");
+            window.location.href = "/";
           }}
           type="button"
           className="w-full bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 transition-colors mt-6"
