@@ -21,12 +21,12 @@ const GurudwaraForm = () => {
     formState: { errors },
   } = useForm<any>();
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   const findRide = async () => {
     let res = await axios.get("/api/rides");
+    console.log({ data: res?.data });
     if (res?.data?.details?._id) {
-      router.push(`/ridedetails/${res?.data?.details?._id}`);
+      window.location.href = `/ridedetails/${res?.data?.details?._id}`;
     } else {
       setLoading(false);
     }

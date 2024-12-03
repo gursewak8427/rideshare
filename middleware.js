@@ -19,10 +19,6 @@ export function middleware(request) {
   if ((isNewRide || isProfile) && !authToken)
     return NextResponse.redirect(new URL("/auth/login", request.url));
 
-  if (isNewRide && authToken) {
-    NextResponse.redirect(new URL("/newride", request.url));
-  }
-
   if (isLogin && authToken) {
     NextResponse.redirect(new URL("/newride", request.url));
   }
