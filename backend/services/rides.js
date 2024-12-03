@@ -29,6 +29,7 @@ export const deleteallrides = async () => {
 };
 export const getRideDetails = async (_id) => {
   try {
+    await connectdb();
     const ride = await ridesModel.findOne({ _id });
     return ride;
   } catch (error) {
