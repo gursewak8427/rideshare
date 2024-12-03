@@ -21,6 +21,7 @@ export const addride = async (data) => {
 };
 export const deleteallrides = async () => {
   try {
+    await connectdb();
     await ridesModel.deleteMany({});
   } catch (error) {
     throw error;

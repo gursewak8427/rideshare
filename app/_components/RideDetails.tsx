@@ -44,7 +44,7 @@ const RideDetails = async({id}:any) => {
           <h1 className="underline mt-5 text-xl mb-3">Bookings</h1>
           <div className="flex mt-8 flex-col gap-3">
             {bookings?.map((e, i) => (
-              <>
+              <div>
                 <div key={i} className="w-[100%] flex items-center gap-2">
                   <Image height={50} width={50} className="rounded-full" alt="..." src={e.userImage} />
                   <div> 
@@ -60,7 +60,7 @@ const RideDetails = async({id}:any) => {
                     </a>
                   </div>
                 </div>
-              </>
+             </div>
             ))}
           </div>
         </div>
