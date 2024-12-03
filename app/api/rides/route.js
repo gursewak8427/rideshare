@@ -7,6 +7,7 @@ import ridesModel from "../../../backend/models/rides";
 import connectdb from "../../../backend/config/db.config";
 
 export const POST = async (req) => {
+  await connectdb();
   let body = await req.json();
   const cookieStore = await cookies();
 
