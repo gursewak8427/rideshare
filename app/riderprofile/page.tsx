@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileInput } from "../_components/FileInput";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -19,32 +19,45 @@ interface FormData {
 }
 
 export default function VehicleForm() {
-  const router=useRouter()
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
     watch,
+    reset,
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = async(data) => {
-    console.log("submitted")
-    const response=await axios.post("/api/riders",data)
-    if(response.data.success){
-      router.replace("/login")
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get("/api/riders");
+      if (response.data.success) {
+        reset({
+          ...response.data.details,
+        });
+      } else {
+        // alert(response?.data?.message);
+      }
+    })();
+  }, []);
+
+  const onSubmit: SubmitHandler<FormData> = async (data: any) => {
+    delete data?._id;
+
+    const response = await axios.post("/api/riders", data);
+    if (response.data.success) {
+      alert("Profile Updated");
+      // router.replace("/");
+    } else {
+      alert(response?.data?.message);
     }
   };
 
   return (
     <div className="max-w-xl mx-auto p-6">
       <div className="flex flex-col items-center mb-8">
-        <FileInput
-          watch={watch}
-          setValue={setValue}
-          name="userImage"
-          
-        />
+        <FileInput watch={watch} setValue={setValue} name="userImage" />
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -53,21 +66,27 @@ export default function VehicleForm() {
           placeholder="Username"
           className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
         />
-        {errors.username && <p className="text-red-600">{errors.username.message}</p>}
+        {errors.username && (
+          <p className="text-red-600">{errors.username.message}</p>
+        )}
 
         <input
           {...register("phoneNumber", { required: "Phone Number is required" })}
           placeholder="Phone Number"
           className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
         />
-        {errors.phoneNumber && <p className="text-red-600">{errors.phoneNumber.message}</p>}
+        {errors.phoneNumber && (
+          <p className="text-red-600">{errors.phoneNumber.message}</p>
+        )}
 
         <input
           {...register("address", { required: "Address is required" })}
           placeholder="Address"
           className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
         />
-        {errors.address && <p className="text-red-600">{errors.address.message}</p>}
+        {errors.address && (
+          <p className="text-red-600">{errors.address.message}</p>
+        )}
 
         <div className="grid grid-cols-2 gap-4">
           <input
@@ -85,16 +104,13 @@ export default function VehicleForm() {
         <div className="mt-8">
           <h2 className="text-lg font-medium mb-4">Vehicle Details</h2>
           <div className="flex flex-col items-center mb-6">
-            <FileInput
-              watch={watch}
-              setValue={setValue}
-              name="vehicleImage"
-             
-            />
+            <FileInput watch={watch} setValue={setValue} name="vechileImage" />
           </div>
 
           <input
-            {...register("vehicleModel", { required: "Vehicle Model is required" })}
+            {...register("vehicleModel", {
+              required: "Vehicle Model is required",
+            })}
             placeholder="Vehicle Model"
             className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
           />
@@ -103,7 +119,9 @@ export default function VehicleForm() {
           )}
 
           <input
-            {...register("vehicleNumber", { required: "Vehicle Number is required" })}
+            {...register("vehicleNumber", {
+              required: "Vehicle Number is required",
+            })}
             placeholder="Vehicle Number"
             className="w-full px-4 py-3 mt-5 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
           />
@@ -117,6 +135,17 @@ export default function VehicleForm() {
           className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors mt-6"
         >
           Submit
+        </button>
+
+        <button
+          onClick={async () => {
+            await axios.get("/api/users/logout");
+            router.push("/");
+          }}
+          type="button"
+          className="w-full bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 transition-colors mt-6"
+        >
+          Logout
         </button>
       </form>
     </div>

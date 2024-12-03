@@ -6,22 +6,22 @@ const riderSchema = new mongoose.Schema({
     ref: "users",
   },
   userImage: {
-    type: String
+    type: String,
   },
   username: {
-    type: String
+    type: String,
   },
   phoneNumber: {
-    type: Number
+    type: Number,
   },
   address: {
-    type: String
+    type: String,
   },
   city: {
-    type: String
+    type: String,
   },
   province: {
-    type: String
+    type: String,
   },
   vehicleNumber: {
     type: String,

@@ -1,26 +1,32 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
+import { useState } from "react";
+import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const router=useRouter()
-  const handleSubmit = async(e: React.FormEvent) => {
-    e.preventDefault()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     // Handle login logic here
-    const response = await axios.post("/api/users/login", {email,password});
+    const response = await axios.post("/api/users/login", { email, password });
     if (response.data.success) {
       router.replace("/");
+    } else {
+      alert("Invalid Credentials");
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 px-2">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <Link href={"/"} className="w-full flex justify-center">
+          <Image src="/logo.png" width={50} height={50} alt="Logo" />
+        </Link>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Log in to your account
         </h2>
@@ -30,7 +36,10 @@ export default function LoginPage() {
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Email address
               </label>
               <div className="mt-1">
@@ -48,7 +57,10 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <div className="mt-1">
@@ -81,14 +93,15 @@ export default function LoginPage() {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  Or
-                </span>
+                <span className="px-2 bg-white text-gray-500">Or</span>
               </div>
             </div>
 
             <div className="mt-6 text-center">
-              <Link href="/auth/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <Link
+                href="/auth/signup"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
                 Don't have an account? Sign up
               </Link>
             </div>
@@ -96,6 +109,5 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

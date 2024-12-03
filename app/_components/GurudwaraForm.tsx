@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import {
   Select,
@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 
 const GurudwaraForm = () => {
   const nav = useRouter();
@@ -19,6 +20,21 @@ const GurudwaraForm = () => {
     control,
     formState: { errors },
   } = useForm();
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  const findRide = async () => {
+    let res = await axios.get("/api/rides");
+    if (res?.data?.details?._id) {
+      router.push(`/ridedetails/${res?.data?.details?._id}`);
+    } else {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    findRide();
+  }, []);
 
   const onSubmit = async (data: any) => {
     // Enhance data with static fields before submitting
@@ -37,8 +53,16 @@ const GurudwaraForm = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <CircularProgress />
+      </div>
+    );
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-xl">
       <div className="flex flex-col justify-between items-center p-3 h-[80vh]">
         <div className="flex flex-col w-full mt-10 gap-5">
           {/* Radio buttons for status */}

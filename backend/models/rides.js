@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const ridesSchema = new mongoose.Schema({
+  userid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+  },
   status: {
     type: String,
     enum: ["go", "back"],

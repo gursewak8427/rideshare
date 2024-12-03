@@ -8,20 +8,18 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import SingleRide from "./SingleRide";
-import Link from "next/link";
 
 const RideList = async () => {
-  const rides = await getrides()
-  
+  const rides = await getrides();
 
   return (
     <>
-      <div className="p-2">
+      <div className="p-2 mt-4">
         {/* {JSON.stringify(rides)} */}
         <div className="flex justify-center gap-2 items-center bg-gray-50 p-2 rounded-full border-2 border-gray-300">
           <Search className="text-gray-500" />
@@ -30,11 +28,11 @@ const RideList = async () => {
             placeholder="Search location"
           />
         </div>
-        <div className=" ">
+        <div className="p-2">
           <div className="flex justify-end">
-            <p className="text-xs font-bold">Sort By:</p>{" "}
+            <p className="text-xs font-bold mr-2">Sort By:</p>
             <Select>
-              <SelectTrigger className=" !text-xs items-start justify-start p-0 !border-0 focus:outline-none focus:ring-0 focus:ring-ring w-[80px] !shadow-0 !outline-none">
+              <SelectTrigger className=" !text-xs items-start justify-start p-0 !border-0 focus:outline-none focus:ring-0 focus:ring-ring w-auto !shadow-0 !outline-none">
                 <SelectValue
                   className="!text-xs !shadow-0 !outline-none!border "
                   placeholder="None"
@@ -50,12 +48,10 @@ const RideList = async () => {
             </Select>
           </div>
         </div>
-        <div className="mt-5">
+        <div className="mt-0">
           <div className="flex flex-col gap-2">
             {rides?.map((e, i) => (
-            
-                <SingleRide details={e} key={i} />
-              
+              <SingleRide details={e} key={i} />
             ))}
           </div>
         </div>
