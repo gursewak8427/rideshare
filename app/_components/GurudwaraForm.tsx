@@ -19,7 +19,7 @@ const GurudwaraForm = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm<any>();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -93,11 +93,11 @@ const GurudwaraForm = () => {
                 Back from Gurudwara Sahib
               </label>
             </div>
-            {errors.status && (
+            {/* {errors.status && (
               <span className="text-red-500 text-xs">
                 {errors.status.message}
               </span>
-            )}
+            )} */}
           </div>
 
           {/* Location input field */}
@@ -106,15 +106,13 @@ const GurudwaraForm = () => {
               type="text"
               {...register("location", { required: "Location is required" })}
               placeholder="Enter Location"
-              className={`p-2 outline-none bg-gray-200 rounded-md ${
-                errors.location ? "border-red-500 border" : ""
-              }`}
+              className={`p-2 outline-none bg-gray-200 rounded-md`}
             />
-            {errors.location && (
+            {/* {errors.location && (
               <span className="text-red-500 text-xs">
                 {errors.location.message}
               </span>
-            )}
+            )} */}
           </div>
 
           {/* Select dropdown for seats */}
@@ -138,36 +136,26 @@ const GurudwaraForm = () => {
                 </Select>
               )}
             />
-            {errors.seats && (
+            {/* {errors.seats && (
               <span className="text-red-500 text-xs">
                 {errors.seats.message}
               </span>
-            )}
+            )} */}
           </div>
 
           {/* Date and Time Inputs */}
           <div className="flex gap-2">
             <input
               type="date"
-              className={`p-2 outline-none w-[50%] bg-gray-200 rounded-md ${
-                errors.date ? "border-red-500 border" : ""
-              }`}
+              className={`p-2 outline-none w-[50%] bg-gray-200 rounded-md`}
               {...register("date", { required: "Please select a date" })}
             />
             <input
               type="time"
-              className={`p-2 outline-none w-[50%] bg-gray-200 rounded-md ${
-                errors.time ? "border-red-500 border" : ""
-              }`}
+              className={`p-2 outline-none w-[50%] bg-gray-200 rounded-md`}
               {...register("time", { required: "Please select a time" })}
             />
           </div>
-          {errors.date && (
-            <span className="text-red-500 text-xs">{errors.date.message}</span>
-          )}
-          {errors.time && (
-            <span className="text-red-500 text-xs">{errors.time.message}</span>
-          )}
         </div>
 
         {/* Submit Button */}

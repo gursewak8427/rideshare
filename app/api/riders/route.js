@@ -76,42 +76,60 @@ export const GET = async (req) => {
   try {
     await connectdb();
 
-    const cookieStore = await cookies();
+    const cookieStore = cookies(); // No need for await here
+    const token = cookieStore.get("rider-secret")?.value;
 
-    const decodedToken = jwt.verify(
-      cookieStore?._parsed.get("rider-secret").value,
-      process?.env?.SECRET_KEY
-    );
+    if (!token) {
+      return NextResponse.json(
+        { message: "Unauthorized: No token provided", success: false },
+        { status: 401 }
+      );
+    }
 
-    if (!decodedToken) {
-      return "Invalid";
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    } catch (error) {
+      return NextResponse.json(
+        { message: "Unauthorized: Invalid token", success: false },
+        { status: 401 }
+      );
     }
 
     const { userId } = decodedToken;
+    if (!userId) {
+      return NextResponse.json(
+        { message: "Unauthorized: Invalid user ID in token", success: false },
+        { status: 401 }
+      );
+    }
 
     let rider = await Rider.findOne({ userid: userId });
 
     if (!rider) {
       return NextResponse.json({
         message: "Rider not found",
+        success: false,
       });
     }
 
-    delete rider._id;
+    // Clean the rider object if needed (e.g., delete sensitive fields)
+    const { _id, ...riderData } = rider.toObject();
 
     return NextResponse.json({
-      message: "rider info fetch successfully",
+      message: "Rider info fetched successfully",
       success: true,
-      details: rider,
+      details: riderData,
     });
-    // return NextResponse.json({
-    //   message: "saved",
-    // });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching rider info:", error);
 
-    return NextResponse.json({
-      message: "something went wrong",
-    });
+    return NextResponse.json(
+      {
+        message: "An error occurred while processing the request",
+        success: false,
+      },
+      { status: 500 }
+    );
   }
 };

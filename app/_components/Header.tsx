@@ -6,7 +6,7 @@ import { CiCirclePlus, CiUser } from "react-icons/ci";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-const Header = ({ ishomepage }: { ishomepage: boolean }) => {
+const Header = () => {
   const path = usePathname();
 
   const isHomePage = path === "/";

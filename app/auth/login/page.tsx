@@ -10,7 +10,9 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
     e.preventDefault();
     // Handle login logic here
     const response = await axios.post("/api/users/login", { email, password });
@@ -82,7 +84,7 @@ export default function LoginPage() {
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Log in
+                {loading ? "Please wait..." : "Log in"}
               </button>
             </div>
           </form>

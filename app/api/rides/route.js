@@ -16,7 +16,7 @@ export const POST = async (req) => {
   );
 
   if (!decodedToken) {
-    return "Invalid";
+    return NextResponse.json({ message: "Invalid Token", success: false });
   }
 
   const { userId } = decodedToken;
@@ -38,7 +38,7 @@ export const GET = async (req) => {
   );
 
   if (!decodedToken) {
-    return "Invalid";
+    return NextResponse.json({ message: "Invalid Token", success: false });
   }
 
   const { userId } = decodedToken;
