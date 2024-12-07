@@ -5,9 +5,10 @@ import React from "react";
 const SingleRide = ({ details }: any) => {
   return (
     <>
-      <Link href={"#"}>
+      <Link href={`/rideslist/${details?._id}`}>
         <div className="w-100 p-2 flex gap-3 rounded-xl bg-gray-200">
           <div className="w-[90%]">
+           
             <h1 className="text-md font-bold">{details?.location}</h1>
             <p className="text-xs text-gray-600">
               {details?.date.toLocaleDateString()},{details?.time}

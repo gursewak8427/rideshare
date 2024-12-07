@@ -31,6 +31,7 @@ export const getRideDetails = async (_id) => {
   try {
     await connectdb();
     const ride = await ridesModel.findOne({ _id });
+    console.log(ride)
     return ride;
   } catch (error) {
     throw error;
