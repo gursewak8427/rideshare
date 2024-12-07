@@ -3,7 +3,9 @@ import Image from "next/image";
 import React from "react";
 
 const RideDetails = async ({ id }: any) => {
-  const data = await getRideDetails(id);
+  const data: any = await getRideDetails(id);
+
+  console.log({ data });
 
   const bookings = [
     {
@@ -17,6 +19,7 @@ const RideDetails = async ({ id }: any) => {
       phoneNumber: 9041912980,
     },
   ];
+
   return (
     <>
       <div className="h-full p-3 flex  flex-col justify-between items-center pb-[100px] relative">

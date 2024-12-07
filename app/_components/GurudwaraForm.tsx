@@ -40,9 +40,6 @@ const GurudwaraForm = () => {
     // Enhance data with static fields before submitting
     data = {
       ...data,
-      carModel: "Tesla",
-      carImage: "/img/images.jpg",
-      riderImage: "/img/_J5wMgdW_400x400.jpg",
     };
 
     try {

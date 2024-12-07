@@ -5,6 +5,7 @@ const riderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
   },
+
   userImage: {
     type: String,
   },
@@ -14,6 +15,7 @@ const riderSchema = new mongoose.Schema({
   phoneNumber: {
     type: Number,
   },
+
   address: {
     type: String,
   },
@@ -23,6 +25,7 @@ const riderSchema = new mongoose.Schema({
   province: {
     type: String,
   },
+
   vehicleNumber: {
     type: String,
   },

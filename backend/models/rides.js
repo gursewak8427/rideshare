@@ -15,21 +15,21 @@ const ridesSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  carModel: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  carImage: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  riderImage: {
-    type: String,
-    required: true,
-    trim: true,
-  },
+  // carModel: {
+  //   type: String,
+  //   required: true,
+  //   trim: true,
+  // },
+  // carImage: {
+  //   type: String,
+  //   required: true,
+  //   trim: true,
+  // },
+  // riderImage: {
+  //   type: String,
+  //   required: true,
+  //   trim: true,
+  // },
   seats: {
     type: Number,
     required: true,

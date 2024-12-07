@@ -1,4 +1,5 @@
 import ridesModel from "../models/rides";
+import riderModel from "../models/rider";
 import connectdb from "../config/db.config";
 
 export const getrides = async () => {
@@ -30,9 +31,12 @@ export const deleteallrides = async () => {
 export const getRideDetails = async (_id) => {
   try {
     await connectdb();
-    const ride = await ridesModel.findOne({ _id });
-    console.log(ride)
-    return ride;
+    const ride = await ridesModel.findOne({ _id }).populate("userid").lean();
+
+    // profile
+    const profile = await riderModel.findOne({ userid: ride?.userid }).lean();
+
+    return { ...ride, ...profile };
   } catch (error) {
     throw error;
   }

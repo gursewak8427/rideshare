@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 const SingleRideDetails = async ({ id }: any) => {
-  const data = await getRideDetails(id);
+  const data: any = await getRideDetails(id);
 
   const bookings = [
     {
@@ -17,10 +17,12 @@ const SingleRideDetails = async ({ id }: any) => {
       phoneNumber: 9041912980,
     },
   ];
+
   return (
     <>
       <div className="h-full p-3 flex  flex-col justify-between items-center pb-[100px] relative">
         <div className="w-[100%]">
+          {/* {JSON.stringify(data)} */}
           <h1 className="text-xl text-black font-bold mt-5">
             {data?.date.toLocaleDateString("en-US", {
               weekday: "long",
@@ -51,7 +53,6 @@ const SingleRideDetails = async ({ id }: any) => {
             {data?.seats} Seats available
           </h1>
           <h1 className="underline mt-5 text-xl mb-3">Rider Details</h1>
-         
         </div>
         <div className="flex gap-2 fixed bottom-5">
           <button
@@ -59,7 +60,7 @@ const SingleRideDetails = async ({ id }: any) => {
             className="py-3 rounded-full px-10 text-white bg-green-500 text-md font-bold"
           >
             Book
-          </button>     
+          </button>
         </div>
       </div>
     </>
