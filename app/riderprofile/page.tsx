@@ -54,6 +54,7 @@ export default function VehicleForm() {
     }
   };
 
+  
   return (
     <div className="max-w-xl mx-auto p-6">
       <div className="flex flex-col items-center mb-8">
@@ -80,7 +81,7 @@ export default function VehicleForm() {
         )}
 
         <input
-          {...register("address", { required: "Address is required" })}
+          {...register("address")}
           placeholder="Address"
           className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
         />
@@ -90,12 +91,12 @@ export default function VehicleForm() {
 
         <div className="grid grid-cols-2 gap-4">
           <input
-            {...register("city", { required: "City is required" })}
+            {...register("city")}
             placeholder="City"
             className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
           />
           <input
-            {...register("province", { required: "Province is required" })}
+            {...register("province")}
             placeholder="Province"
             className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
           />
@@ -108,9 +109,7 @@ export default function VehicleForm() {
           </div>
 
           <input
-            {...register("vehicleModel", {
-              required: "Vehicle Model is required",
-            })}
+            {...register("vehicleModel")}
             placeholder="Vehicle Model"
             className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
           />
@@ -119,12 +118,10 @@ export default function VehicleForm() {
           )}
 
           <input
-            {...register("vehicleNumber", {
-              required: "Vehicle Number is required",
-            })}
+            {...register("vehicleNumber")}
             placeholder="Vehicle Number"
             className="w-full px-4 py-3 mt-5 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
+          />  
           {errors.vehicleNumber && (
             <p className="text-red-600">{errors.vehicleNumber.message}</p>
           )}

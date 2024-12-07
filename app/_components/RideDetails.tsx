@@ -7,18 +7,18 @@ const RideDetails = async ({ id }: any) => {
 
   console.log({ data });
 
-  const bookings = [
-    {
-      userImage: "/img/_J5wMgdW_400x400.jpg",
-      userName: "rattan",
-      phoneNumber: 9041912980,
-    },
-    {
-      userImage: "/img/_J5wMgdW_400x400.jpg",
-      userName: "jagga",
-      phoneNumber: 9041912980,
-    },
-  ];
+  // const bookings = [
+  //   {
+  //     userImage: "/img/_J5wMgdW_400x400.jpg",
+  //     userName: "rattan",
+  //     phoneNumber: 9041912980,
+  //   },
+  //   {
+  //     userImage: "/img/_J5wMgdW_400x400.jpg",
+  //     userName: "jagga",
+  //     phoneNumber: 9041912980,
+  //   },
+  // ];
 
   return (
     <>
@@ -55,7 +55,7 @@ const RideDetails = async ({ id }: any) => {
           </h1>
           <h1 className="underline mt-5 text-xl mb-3">Bookings</h1>
           <div className="flex mt-8 flex-col gap-3">
-            {bookings?.map((booking, i) => (
+            {data?.bookings?.map((booking:any, i:any) => (
               <div>
                 <div key={i} className="w-[100%] flex items-center gap-2">
                   <Image

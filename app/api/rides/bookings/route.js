@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { addride, getrides } from "../../../backend/services/rides";
-import { deleteallrides } from "../../../backend/services/rides";
+// import { addride, getrides } from "../../../backend/services/rides";
+// import { deleteallrides } from "../../../backend/services/rides";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
-import connectdb from "../../../backend/config/db.config";
+import connectdb from "../../../../backend/config/db.config";
 import bookingsModel from "../../../../backend/models/bookings";
 
 //  On click book button
@@ -26,10 +26,13 @@ export const POST = async (req) => {
 
   const { userId } = decodedToken;
 
+  console.log({userId,rideid})
   const existingRide = await bookingsModel.findOne({
     userid: userId,
     rideid: rideid,
   });
+  
+  console.log(existingRide)
 
   if (existingRide && existingRide?.status !== "CANCEL") {
     return NextResponse.json({

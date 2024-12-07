@@ -50,7 +50,7 @@ const RideList = async () => {
         </div>
         <div className="mt-0">
           <div className="flex flex-col gap-2">
-            {rides?.map((e, i) => (
+            {rides?.map((e:any, i:any) => (
               <SingleRide details={e} key={i} />
             ))}
           </div>

@@ -1,6 +1,10 @@
 import ridesModel from "../models/rides";
 import riderModel from "../models/rider";
+import userModel from "../models/users";
+import bookingModel from "../models/bookings";
 import connectdb from "../config/db.config";
+import axios from "axios";
+import bookings from "../models/bookings";
 
 export const getrides = async () => {
   try {
@@ -31,12 +35,40 @@ export const deleteallrides = async () => {
 export const getRideDetails = async (_id) => {
   try {
     await connectdb();
-    const ride = await ridesModel.findOne({ _id }).populate("userid").lean();
 
-    // profile
-    const profile = await riderModel.findOne({ userid: ride?.userid }).lean();
+    
+    const ride = await ridesModel
+      .findOne({ _id })
+      .populate("userid") 
+      .lean();
 
-    return { ...ride, ...profile };
+    if (!ride) {
+      throw new Error("Ride not found");
+    }
+
+    
+    const profile = await riderModel.findOne({ userid: ride.userid }).lean();
+
+    
+    const bookingsList = await bookings.find({ rideid: _id }).lean();
+
+    
+    const bookingListWithProfiles = await Promise.all(
+      bookingsList.map(async (booking) => {
+        const userprofile = await riderModel.findOne({ userid: booking.userid }).lean();
+        return {
+          userprofile,
+          booking,
+        };
+      })
+    );
+
+    
+    return {
+      ...ride,
+      profile,
+      bookingList: bookingListWithProfiles,
+    };
   } catch (error) {
     throw error;
   }
