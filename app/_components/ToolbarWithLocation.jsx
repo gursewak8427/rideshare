@@ -6,6 +6,8 @@ import { MapPin, Map } from 'lucide-react'
 import MapModal from './MapModal'
 import { getLocalStorage, setLocalStorage } from "@/lib/utils"
 
+const libraries = ["places"]; // Move outside the component
+
 const ToolbarWithLocation = ({ onLocationChange, isSave = true }) => {
     const [currentLocation, setCurrentLocation] = useState(null)
     const [address, setAddress] = useState("")
@@ -13,7 +15,7 @@ const ToolbarWithLocation = ({ onLocationChange, isSave = true }) => {
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-        libraries: ["places"],
+        libraries,
     })
 
     const getAddressFromLatLng = async (location) => {
