@@ -11,6 +11,8 @@ import {
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
+import MapWithLocationPicker from "@/app/_components/MapLocationPicker";
+import ToolbarWithLocation from "@/app/_components/ToolbarWithLocation"
 
 const page = () => {
   const nav = useRouter();
@@ -21,7 +23,11 @@ const page = () => {
     formState: { errors },
   } = useForm<any>();
   const [loading, setLoading] = useState(false);
+  const [locationObj, setLocationObj] = useState<any>({ lat: -1, lng: -1 });
 
+  const handleLocationChange = ({ lat, lng }: any) => {
+
+  };
   // const findRide = async () => {
   //   let res = await axios.get("/api/rides");
   //   console.log({ data: res?.data });
@@ -40,6 +46,7 @@ const page = () => {
     // Enhance data with static fields before submitting
     data = {
       ...data,
+      ...locationObj,
     };
 
     try {
@@ -49,6 +56,14 @@ const page = () => {
       console.error("Error submitting form", error);
     }
   };
+
+  const handleLocationSelect = ({ lat, lng }: any) => {
+    console.log({ lat, lng })
+    setLocationObj({
+      latitude: lat,
+      longitude: lng,
+    });
+  }
 
   if (loading) {
     return (
@@ -100,19 +115,26 @@ const page = () => {
           </div>
 
           {/* Location input field */}
-          <div className="flex flex-col">
-            <input
-              type="text"
-              {...register("location", { required: "Location is required" })}
-              placeholder="Enter Location"
-              className={`p-2 outline-none bg-gray-200 rounded-md`}
-            />
-            {/* {errors.location && (
+          <div className="w-full space-y-3">
+            <ToolbarWithLocation onLocationChange={handleLocationSelect} isSave={false} />
+            {/* <MapWithLocationPicker onLocationChange={handleLocationChange} /> */}
+
+            <div className="flex flex-col">
+              <input
+                type="text"
+                {...register("location", { required: "Location is required" })}
+                placeholder="Enter Location"
+                className={`p-2 outline-none bg-gray-200 rounded-md`}
+              />
+              {/* {errors.location && (
               <span className="text-red-500 text-xs">
                 {errors.location.message}
               </span>
             )} */}
+            </div>
+
           </div>
+
 
           {/* Select dropdown for seats */}
           <div className="flex flex-col">
@@ -156,6 +178,8 @@ const page = () => {
             />
           </div>
         </div>
+
+
 
         {/* Submit Button */}
         <div>

@@ -33,8 +33,24 @@ const ridesSchema = new mongoose.Schema({
     type: String,
     enum: ["ACTIVE", "STOPPED", "CLOSED"],
     default: "ACTIVE"
-  }
+  },
+  coordinates: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+      default: "Point",
+    },
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      required: true,
+    },
+  },
 }, { timestamps: true });
+
+// Add GeoJSON index for geospatial queries
+ridesSchema.index({ coordinates: "2dsphere" });
+
 
 // Check if the model already exists
 const Rides = mongoose.models.Rides || mongoose.model("Rides", ridesSchema);

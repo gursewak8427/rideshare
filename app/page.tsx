@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, Plus } from "lucide-react";
 import { CiCirclePlus } from "react-icons/ci";
 import Link from "next/link";
 import { Button } from "@mui/material";
+import ToolbarWithLocation from "@/app/_components/ToolbarWithLocation"
 
 export default function page() {
   return (
@@ -38,6 +39,8 @@ export default function page() {
       {/* Main Content */}
 
       <main className="w-full flex flex-col items-center justify-start pt-5 min-h-[calc(100vh-140px)] px-4 gap-4">
+
+        <ToolbarWithLocation />
         <img
           className="h-[400px] max-h-[50vh]"
           src="https://rapidoride.com/wp-content/uploads/2024/04/rapido-ride-driver.png"

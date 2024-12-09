@@ -25,7 +25,14 @@ export const POST = async (req) => {
 
   console.log({ body });
 
-  const newride = await addride(body);
+  const { latitude, longitude } = body;
+
+  delete body.latitude;
+  delete body.longitude;
+
+  const newride = await addride({
+    ...body, coordinates: { type: "Point", coordinates: [longitude, latitude] },
+  });
   return NextResponse.json(newride);
 };
 
@@ -33,10 +40,23 @@ export const GET = async (req) => {
   await connectdb();
   const searchParams = req.nextUrl.searchParams
   const routetype = searchParams.get('routetype')
+  const latitude = searchParams.get('lat')
+  const longitude = searchParams.get('long')
+  const radius = 5000;
 
   const rides = await ridesModel.aggregate([
     {
-      $match: { routetype, status: "ACTIVE" }, // Match the routetype
+      $match: {
+        routetype,
+        status: "ACTIVE",
+        ...((latitude && longitude) && {
+          coordinates: {
+            $geoWithin: {
+              $centerSphere: [[parseFloat(longitude), parseFloat(latitude)], radius / 6378100], // Radius in radians
+            },
+          },
+        })
+      }, // Match the routetype
     },
     {
       $lookup: {

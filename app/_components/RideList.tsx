@@ -12,7 +12,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-import SingleRide from "./SingleRide";pp
+import SingleRide from "./SingleRide";
 
 const RideList = async () => {
     const rides = await getrides();

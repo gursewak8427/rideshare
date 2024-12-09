@@ -18,6 +18,7 @@ import SingleRide from "../_components/SingleRide";
 
 import { RideCardSkeleton } from "@/app/_components/RideCardSkelton"
 
+import ToolbarWithLocation from "@/app/_components/ToolbarWithLocation"
 
 const page = () => {
   const [rides, setRides] = useState<any>([])
@@ -25,7 +26,11 @@ const page = () => {
   const sp = useSearchParams();
 
   const getMyRides = async () => {
-    let response = await axios.get(`/api/rides?routetype=${sp.get('route')}`)
+    console.log("Fetching rides list...")
+    setLoading(true)
+    let userLocation: any = localStorage.getItem("userLocation")
+    userLocation = JSON.parse(userLocation)
+    let response = await axios.get(`/api/rides?lat=${userLocation.lat}&long=${userLocation.lng}&routetype=${sp.get('route')}`)
 
     console.log(response?.data?.details, "--myrides")
     setRides(response?.data?.details)
@@ -39,7 +44,11 @@ const page = () => {
   return (
     <>
       <div className="p-2 mt-4">
-        <div className="flex justify-center gap-2 items-center bg-gray-50 p-2 rounded-full border-2 border-gray-300">
+        <div className="p-2">
+          <ToolbarWithLocation onLocationChange={({ lat, lng }: any) => getMyRides()} />
+        </div>
+
+        {/* <div className="flex justify-center gap-2 items-center bg-gray-50 p-2 rounded-full border-2 border-gray-300">
           <Search className="text-gray-500" />
           <input
             className="w-[90%] bg-gray-50 outline-none "
@@ -65,7 +74,7 @@ const page = () => {
               </SelectContent>
             </Select>
           </div>
-        </div>
+        </div> */}
         <div className="mt-0">
           <div className="flex flex-col gap-2">
             {
