@@ -26,12 +26,12 @@ export const POST = async (req) => {
 
   const { userId } = decodedToken;
 
-  console.log({userId,rideid})
+  console.log({ userId, rideid })
   const existingRide = await bookingsModel.findOne({
     userid: userId,
     rideid: rideid,
   });
-  
+
   console.log(existingRide)
 
   if (existingRide && existingRide?.status !== "CANCEL") {
@@ -54,31 +54,31 @@ export const POST = async (req) => {
 };
 
 // Driver will get bookings list
-export const GET = async (req) => {
-  await connectdb();
-  let body = await req.json();
+// export const GET = async (req) => {
+//   await connectdb();
+//   let body = await req.json();
 
-  const { rideid } = body;
+//   const { rideid } = body;
 
-  const cookieStore = await cookies();
+//   const cookieStore = await cookies();
 
-  const decodedToken = jwt.verify(
-    cookieStore?._parsed.get("rider-secret").value,
-    process?.env?.SECRET_KEY
-  );
+//   const decodedToken = jwt.verify(
+//     cookieStore?._parsed.get("rider-secret").value,
+//     process?.env?.SECRET_KEY
+//   );
 
-  if (!decodedToken) {
-    return NextResponse.json({ message: "Invalid Token", success: false });
-  }
+//   if (!decodedToken) {
+//     return NextResponse.json({ message: "Invalid Token", success: false });
+//   }
 
-  let bookings = await bookingsModel.find({ rideid }).lean();
+//   let bookings = await bookingsModel.find({ rideid }).lean();
 
-  return NextResponse.json({
-    success: true,
-    message: "Bookings find successfully",
-    details: bookings,
-  });
-};
+//   return NextResponse.json({
+//     success: true,
+//     message: "Bookings find successfully",
+//     details: bookings,
+//   });
+// };
 
 // Driver will update bookings
 export const PATCH = async (req) => {

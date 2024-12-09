@@ -53,14 +53,13 @@ const BookingButton = ({ rideid }: { rideid: string }) => {
   };
 
   return (
-    <div className="flex gap-2 fixed bottom-5">
+    <div className="flex gap-2">
       <button
         type="button"
         onClick={handleClick}
         disabled={loading}
-        className={`py-3 rounded-full px-10 text-white text-md font-bold ${
-          loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
-        }`}
+        className={`py-3 rounded-full px-10 text-white text-md font-bold ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
+          }`}
       >
         {loading ? "Loading..." : "Book"}
       </button>

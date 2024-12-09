@@ -31,29 +31,57 @@ export const POST = async (req) => {
 
 export const GET = async (req) => {
   await connectdb();
-  const cookieStore = await cookies();
+  const searchParams = req.nextUrl.searchParams
+  const routetype = searchParams.get('routetype')
 
-  const decodedToken = jwt.verify(
-    cookieStore?._parsed.get("rider-secret").value,
-    process?.env?.SECRET_KEY
-  );
-
-  if (!decodedToken) {
-    return NextResponse.json({ message: "Invalid Token", success: false });
-  }
-
-  const { userId } = decodedToken;
-
-  const ride = await ridesModel.findOne({ userid: userId });
-
-  if (!ride) {
-    return NextResponse.json({ message: "Ride Find", success: false });
-  }
+  const rides = await ridesModel.aggregate([
+    {
+      $match: { routetype, status: "ACTIVE" }, // Match the routetype
+    },
+    {
+      $lookup: {
+        from: "riders", // Name of the riders collection
+        localField: "userid", // Field in the rides model
+        foreignField: "userid", // Field in the riders model
+        as: "riderDetails", // Output array containing matched riders
+      },
+    },
+    {
+      $unwind: {
+        path: "$riderDetails", // Unwind the array to merge rider details into the ride document
+        preserveNullAndEmptyArrays: true, // Optional: if you want to preserve rides with no matching rider
+      },
+    },
+  ]);
 
   return NextResponse.json({
     message: "Ride Find",
     success: true,
-    details: ride,
+    details: rides,
+  });
+};
+
+
+export const PATCH = async (req) => {
+  await connectdb();
+
+  const body = await req?.json();
+  const { id, data } = body;
+
+  console.log({ body })
+
+  if (!id) {
+    return NextResponse.json({
+      message: "Id is required",
+      success: false,
+    });
+  }
+
+  await ridesModel.findByIdAndUpdate(id, data)
+
+  return NextResponse.json({
+    message: "Ride Update Successfully",
+    success: true
   });
 };
 

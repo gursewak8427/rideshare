@@ -5,7 +5,7 @@ const ridesSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
   },
-  status: {
+  routetype: {
     type: String,
     enum: ["go", "back"],
     required: true,
@@ -15,21 +15,6 @@ const ridesSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  // carModel: {
-  //   type: String,
-  //   required: true,
-  //   trim: true,
-  // },
-  // carImage: {
-  //   type: String,
-  //   required: true,
-  //   trim: true,
-  // },
-  // riderImage: {
-  //   type: String,
-  //   required: true,
-  //   trim: true,
-  // },
   seats: {
     type: Number,
     required: true,
@@ -44,11 +29,12 @@ const ridesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  status: {
+    type: String,
+    enum: ["ACTIVE", "STOPPED", "CLOSED"],
+    default: "ACTIVE"
+  }
+}, { timestamps: true });
 
 // Check if the model already exists
 const Rides = mongoose.models.Rides || mongoose.model("Rides", ridesSchema);

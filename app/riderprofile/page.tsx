@@ -54,7 +54,7 @@ export default function VehicleForm() {
     }
   };
 
-  
+
   return (
     <div className="max-w-xl mx-auto p-6">
       <div className="flex flex-col items-center mb-8">
@@ -121,7 +121,7 @@ export default function VehicleForm() {
             {...register("vehicleNumber")}
             placeholder="Vehicle Number"
             className="w-full px-4 py-3 mt-5 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-          />  
+          />
           {errors.vehicleNumber && (
             <p className="text-red-600">{errors.vehicleNumber.message}</p>
           )}
@@ -131,7 +131,7 @@ export default function VehicleForm() {
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors mt-6"
         >
-          Submit
+          Update
         </button>
 
         <button

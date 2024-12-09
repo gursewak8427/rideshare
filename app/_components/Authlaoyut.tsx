@@ -1,6 +1,7 @@
+"use client"
 import React from 'react'
 
-const Authlaoyut = ({children}:any) => {
+const Authlaoyut = ({ children }: any) => {
   return (
     <div>{children}</div>
   )
