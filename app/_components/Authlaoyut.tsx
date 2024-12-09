@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { setLocalStorage } from "@/lib/utils";
 
 const Authlaoyut = ({ children }: any) => {
   let authToken = Cookies.get("rider-secret");
@@ -10,10 +11,7 @@ const Authlaoyut = ({ children }: any) => {
     let res = await axios.get("/api/users/profile");
     if (res?.data?.success) {
       console.log(res?.data?.details);
-      window.localStorage.setItem(
-        "rider-profile",
-        JSON.stringify(res?.data?.details)
-      );
+      setLocalStorage("rider-profile", JSON.stringify(res?.data?.details))
     }
   };
 
@@ -24,7 +22,7 @@ const Authlaoyut = ({ children }: any) => {
     if (authToken) getProfile();
   }, [authToken]);
 
-  return <div>{children}</div>;
+  return <Suspense><div>{children}</div></Suspense>;
 };
 
 export default Authlaoyut;

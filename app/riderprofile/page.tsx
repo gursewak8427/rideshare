@@ -160,7 +160,7 @@ export default function VehicleForm() {
         <button
           onClick={async () => {
             await axios.get("/api/users/logout");
-            window.localStorage.removeItem("rider-profile");
+            localStorage?.removeItem("rider-profile");
             window.location.href = "/";
           }}
           type="button"

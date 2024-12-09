@@ -19,6 +19,7 @@ import SingleRide from "../_components/SingleRide";
 import { RideCardSkeleton } from "@/app/_components/RideCardSkelton"
 
 import ToolbarWithLocation from "@/app/_components/ToolbarWithLocation"
+import { getLocalStorage } from "@/lib/utils";
 
 const page = () => {
   const [rides, setRides] = useState<any>([])
@@ -28,7 +29,7 @@ const page = () => {
   const getMyRides = async () => {
     console.log("Fetching rides list...")
     setLoading(true)
-    let userLocation: any = localStorage.getItem("userLocation")
+    let userLocation: any = getLocalStorage("userLocation")
     userLocation = JSON.parse(userLocation)
     let response = await axios.get(`/api/rides?lat=${userLocation.lat}&long=${userLocation.lng}&routetype=${sp.get('route')}`)
 

@@ -6,6 +6,7 @@ import { CiCirclePlus, CiUser } from "react-icons/ci";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Cookies from "js-cookie";
+import { getLocalStorage } from "@/lib/utils";
 
 const Header = () => {
   const path = usePathname();
@@ -20,7 +21,7 @@ const Header = () => {
   if (isAuthPage) return <></>;
 
   let authToken = Cookies.get("rider-secret");
-  let userProfile: any = window.localStorage.getItem("rider-profile");
+  let userProfile: any = getLocalStorage("rider-profile");
   userProfile = userProfile ? JSON.parse(userProfile) : null;
 
   console.log({ userProfile });
@@ -58,11 +59,10 @@ const Header = () => {
         <div className="flex items-center space-x-4">
           {!isNewRidePage && !isRideDetailsPage && authToken && (
             <Link
-              href={`${
-                userProfile && isDriverProfileComplete
-                  ? "/newride"
-                  : "/riderprofile?url=/newride"
-              }`}
+              href={`${userProfile && isDriverProfileComplete
+                ? "/newride"
+                : "/riderprofile?url=/newride"
+                }`}
             >
               <CiCirclePlus className="w-8 h-8 text-gray-600 cursor-pointer" />
             </Link>

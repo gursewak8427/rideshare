@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 import { useLoadScript } from "@react-google-maps/api"
 import { MapPin, Map } from 'lucide-react'
 import MapModal from './MapModal'
+import { getLocalStorage, setLocalStorage } from "@/lib/utils"
 
 const ToolbarWithLocation = ({ onLocationChange, isSave = true }) => {
     const [currentLocation, setCurrentLocation] = useState(null)
@@ -38,13 +39,13 @@ const ToolbarWithLocation = ({ onLocationChange, isSave = true }) => {
         setCurrentLocation(location)
         setAddress(address)
         if (isSave)
-            localStorage.setItem("userLocation", JSON.stringify(location))
+            setLocalStorage("userLocation", JSON.stringify(location))
         setIsMapModalOpen(false)
         if (onLocationChange) onLocationChange(location)
     }
 
     useEffect(() => {
-        const savedLocation = localStorage.getItem("userLocation")
+        const savedLocation = getLocalStorage("userLocation")
         if (savedLocation) {
             const location = JSON.parse(savedLocation)
             setCurrentLocation(location)
