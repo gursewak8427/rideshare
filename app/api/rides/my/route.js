@@ -23,7 +23,10 @@ export const GET = async (req) => {
 
   const { userId } = decodedToken;
 
-  let rides = await ridesModel.find({ userid: userId }).sort({ createdAt: -1 }).lean();
+  let rides = await ridesModel
+    .find({ userid: userId })
+    .sort({ createdAt: -1 })
+    .lean();
 
   return NextResponse.json({
     success: true,

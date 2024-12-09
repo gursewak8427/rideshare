@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { FileInput } from "../_components/FileInput";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface FormData {
   username: string;
@@ -19,6 +19,9 @@ interface FormData {
 }
 
 export default function VehicleForm() {
+  const sp = useSearchParams();
+  const url = sp.get("url");
+
   const router = useRouter();
   const {
     register,
@@ -48,17 +51,28 @@ export default function VehicleForm() {
     const response = await axios.post("/api/riders", data);
     if (response.data.success) {
       alert("Profile Updated");
-      // router.replace("/");
     } else {
       alert(response?.data?.message);
     }
+
+    if (url) window.location.href = url;
   };
 
-
   return (
-    <div className="max-w-xl mx-auto p-6">
-      <div className="flex flex-col items-center mb-8">
-        <FileInput watch={watch} setValue={setValue} name="userImage" />
+    <div className="max-w-xl mx-auto p-6 space-y-4">
+      {url && (
+        <p className="w-full p-2 rounded-md text-center bg-orange-200 text-black italic">
+          Complete your profile before publishing a ride
+        </p>
+      )}
+
+      <div className="flex flex-col items-center">
+        <FileInput
+          isRound={true}
+          watch={watch}
+          setValue={setValue}
+          name="userImage"
+        />
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -79,6 +93,10 @@ export default function VehicleForm() {
         {errors.phoneNumber && (
           <p className="text-red-600">{errors.phoneNumber.message}</p>
         )}
+
+        <p className="italic border-b pb-2 font-semibold text-gray-700">
+          Following details is required, if you want to publish your ride
+        </p>
 
         <input
           {...register("address")}
@@ -105,7 +123,12 @@ export default function VehicleForm() {
         <div className="mt-8">
           <h2 className="text-lg font-medium mb-4">Vehicle Details</h2>
           <div className="flex flex-col items-center mb-6">
-            <FileInput watch={watch} setValue={setValue} name="vechileImage" />
+            <FileInput
+              isRound={false}
+              watch={watch}
+              setValue={setValue}
+              name="vechileImage"
+            />
           </div>
 
           <input
@@ -137,6 +160,7 @@ export default function VehicleForm() {
         <button
           onClick={async () => {
             await axios.get("/api/users/logout");
+            window.localStorage.removeItem("rider-profile");
             window.location.href = "/";
           }}
           type="button"

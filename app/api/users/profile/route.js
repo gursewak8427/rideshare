@@ -5,6 +5,7 @@ import { cookies, headers } from "next/headers";
 import users from "../../../../backend/models/users";
 import { NextResponse } from "next/server";
 import riders from "@/backend/models/rider";
+
 export const GET = async (req) => {
   try {
     await connectdb();

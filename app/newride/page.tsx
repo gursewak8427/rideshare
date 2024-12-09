@@ -44,7 +44,7 @@ const page = () => {
 
     try {
       await axios.post("/api/rides", data);
-      nav.push("/rideslist");
+      nav.push("/myrides");
     } catch (error) {
       console.error("Error submitting form", error);
     }
@@ -66,7 +66,9 @@ const page = () => {
           <div className="flex flex-col gap-1">
             <div className="flex items-center">
               <input
-                {...register("routetype", { required: "Please select a status" })}
+                {...register("routetype", {
+                  required: "Please select a status",
+                })}
                 value="go"
                 className="mr-2"
                 type="radio"
@@ -78,7 +80,9 @@ const page = () => {
             </div>
             <div className="flex items-center">
               <input
-                {...register("routetype", { required: "Please select a status" })}
+                {...register("routetype", {
+                  required: "Please select a status",
+                })}
                 value="back"
                 className="mr-2"
                 type="radio"

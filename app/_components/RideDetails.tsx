@@ -1,7 +1,7 @@
 import { getRideDetails } from "@/backend/services/rides";
 import BookingCard from "@/app/_components/BookingCard";
 import React from "react";
-import { RideDetailsButton } from "@/app/_components/RideDetailsButton"
+import { RideDetailsButton } from "@/app/_components/RideDetailsButton";
 
 const RideDetails = async ({ id }: any) => {
   const data: any = await getRideDetails(id);
@@ -44,7 +44,12 @@ const RideDetails = async ({ id }: any) => {
           <h1 className="underline mt-5 text-xl mb-3">Bookings</h1>
           <div className="flex mt-8 flex-col gap-3">
             {data?.bookings?.map((booking: any, i: any) => {
-              return <BookingCard details={JSON.parse(JSON.stringify(booking))} key={i} />
+              return (
+                <BookingCard
+                  details={JSON.parse(JSON.stringify(booking))}
+                  key={i}
+                />
+              );
             })}
           </div>
         </div>

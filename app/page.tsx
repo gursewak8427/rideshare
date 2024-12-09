@@ -36,31 +36,63 @@ export default function page() {
       </main> */}
 
       {/* Main Content */}
-      <main className="w-full flex flex-col items-center justify-center min-h-[calc(100vh-140px)] px-4 gap-4">
+
+      <main className="w-full flex flex-col items-center justify-start pt-5 min-h-[calc(100vh-140px)] px-4 gap-4">
+        <img
+          className="h-[400px] max-h-[50vh]"
+          src="https://rapidoride.com/wp-content/uploads/2024/04/rapido-ride-driver.png"
+          alt=""
+        />
+
         <Link
           href={"/rideslist?route=go"}
-          className="w-full max-w-md py-4 px-6 bg-gray-100 rounded-full flex items-center justify-between hover:bg-gray-200 transition-colors">
+          className="w-full max-w-md py-4 px-6 bg-green-300 rounded-full flex items-center justify-between hover:bg-green-500 transition-colors"
+        >
           <span className="text-lg">Go To Gurudwara Sahib</span>
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </Link>
 
         <Link
           href={"/rideslist?route=back"}
-          className="w-full max-w-md py-4 px-6 bg-gray-100 rounded-full flex items-center justify-between hover:bg-gray-200 transition-colors">
-          <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+          className="w-full max-w-md py-4 px-6 bg-blue-300 rounded-full flex items-center justify-between hover:bg-blue-500 transition-colors"
+        >
+          <svg
+            className="w-5 h-5 rotate-180"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5l7 7-7 7"
+            />
           </svg>
           <span className="text-lg">Go from Gurudwara Sahib</span>
         </Link>
       </main>
 
-
       <footer className="fixed bottom-0 left-0 right-0 border-t bg-white">
         <nav className="flex justify-around py-4">
-          <Link href={`/myrides`} className="text-blue-500 font-medium">MY RIDES</Link>
-          <Link href={`/mybookings`} className="text-blue-500 font-medium">MY BOOKINGS</Link>
+          <Link href={`/myrides`} className="text-blue-500 font-medium">
+            MY RIDES
+          </Link>
+          <Link href={`/mybookings`} className="text-blue-500 font-medium">
+            MY BOOKINGS
+          </Link>
         </nav>
       </footer>
     </div>

@@ -26,13 +26,13 @@ export const POST = async (req) => {
 
   const { userId } = decodedToken;
 
-  console.log({ userId, rideid })
+  console.log({ userId, rideid });
   const existingRide = await bookingsModel.findOne({
     userid: userId,
     rideid: rideid,
   });
 
-  console.log(existingRide)
+  console.log(existingRide);
 
   if (existingRide && existingRide?.status !== "CANCEL") {
     return NextResponse.json({

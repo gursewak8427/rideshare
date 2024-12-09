@@ -1,4 +1,4 @@
-"use effect"
+"use effect";
 export const AuthLayout = ({ children }) => {
-    return children;
-}
+  return children;
+};

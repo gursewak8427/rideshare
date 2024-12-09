@@ -23,6 +23,7 @@ const BookingButton = ({ rideid }: { rideid: string }) => {
         } else {
           // Booking succeeded
           alert("Ride booked successfully!");
+          router.push("/mybookings");
         }
       } else {
         // Profile retrieval failed
@@ -58,8 +59,9 @@ const BookingButton = ({ rideid }: { rideid: string }) => {
         type="button"
         onClick={handleClick}
         disabled={loading}
-        className={`py-3 rounded-full px-10 text-white text-md font-bold ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
-          }`}
+        className={`py-3 rounded-full px-10 text-white text-md font-bold ${
+          loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
+        }`}
       >
         {loading ? "Loading..." : "Book"}
       </button>
