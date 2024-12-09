@@ -20,20 +20,21 @@ const ToolbarWithLocation = ({ onLocationChange, isSave = true }) => {
 
     const fetchCurrentLocation = () => {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const { latitude, longitude } = position.coords
-              const newPosition = { lat: latitude, lng: longitude }
-              getAddressFromLatLng(newPosition)
-            },
-            (error) => {
-              console.error("Error fetching location:", error.message)
-            }
-          )
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords
+                    const newPosition = { lat: latitude, lng: longitude }
+                    getAddressFromLatLng(newPosition)
+                    setLocalStorage("userLocation", JSON.stringify(newPosition))
+                },
+                (error) => {
+                    console.error("Error fetching location:", error.message)
+                }
+            )
         } else {
-          console.error("Geolocation is not supported by this browser.")
+            console.error("Geolocation is not supported by this browser.")
         }
-      }
+    }
 
     const getAddressFromLatLng = async (location) => {
         try {
@@ -69,7 +70,7 @@ const ToolbarWithLocation = ({ onLocationChange, isSave = true }) => {
             const location = JSON.parse(savedLocation)
             setCurrentLocation(location)
             getAddressFromLatLng(location)
-        }else{
+        } else {
             fetchCurrentLocation()
         }
     }, [])
