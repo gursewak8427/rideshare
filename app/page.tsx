@@ -51,7 +51,7 @@ export default function page() {
           href={"/rideslist?route=go"}
           className="w-full max-w-md py-4 px-6 bg-green-300 rounded-full flex items-center justify-between hover:bg-green-500 transition-colors"
         >
-          <span className="text-lg">Go To Gurudwara Sahib</span>
+          <span className="text-lg">Go To Gurudwara Chupehra Sahib</span>
           <svg
             className="w-5 h-5"
             fill="none"
@@ -84,7 +84,7 @@ export default function page() {
               d="M9 5l7 7-7 7"
             />
           </svg>
-          <span className="text-lg">Go from Gurudwara Sahib</span>
+          <span className="text-lg">Start from Gurudwara Chupehra Sahib</span>
         </Link>
       </main>
 

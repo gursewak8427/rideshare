@@ -15,11 +15,13 @@ import Link from "next/link";
 import { CircularProgress } from "@mui/material";
 import { RideCardSkeleton } from "@/app/_components/RideCardSkelton"
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 const page = () => {
   const [bookings, setBookings] = useState<any>([])
   const [loading, setLoading] = useState<any>(true)
+  const router = useRouter()
 
   const getMyRides = async () => {
     let response = await axios.get('/api/rides/bookings/my')
@@ -36,10 +38,20 @@ const page = () => {
     <>
       <div className="p-4 mt-4">
         <div className="mt-0">
-          {/* {JSON.stringify(bookings)} */}
+          {/* {JSON.stringify(bookings)} */
+            <h1 className="font-bold mb-4 text-center w-full">-- My Ride Bookings --</h1>
+          }
           <div className="flex flex-col gap-2">
             {
               loading && <RideCardSkeleton driverProfile={false} />
+            }
+            {
+              !loading && bookings?.length == 0 && <div className="w-full flex flex-col gap-3 items-center justify-start">
+                <p className="w-full text-center text-orange-800">
+                  You havn't book any ride.
+                </p>
+                <button className="px-4 py-2 bg-gray-200 rounded-lg hove:bg-blue-400" onClick={() => router.push("/")}>Book now</button>
+              </div>
             }
             {bookings?.map((booking: any, i: any) => (
               <Link href={`/mybookings/${booking?._id}`} key={i}>

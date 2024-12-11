@@ -34,6 +34,7 @@ const page = () => {
     <>
       <div className="p-4 mt-4">
         <div className="mt-0">
+          <h1 className="font-bold mb-4 text-center w-full">-- My Rides --</h1>
           <div className="flex flex-col gap-2">
             {loading && <RideCardSkeleton driverProfile={false} />}
             {rides?.map((ride: any, i: any) => (

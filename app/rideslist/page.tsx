@@ -49,6 +49,9 @@ const page = () => {
           <ToolbarWithLocation onLocationChange={({ lat, lng }: any) => getMyRides()} />
         </div>
 
+        <h1 className="font-bold my-4 text-center w-full">-- Going {sp.get('route') == "to" ? "to" : "from"} Gurudwara Chupehra Sahib --</h1>
+
+
         {/* <div className="flex justify-center gap-2 items-center bg-gray-50 p-2 rounded-full border-2 border-gray-300">
           <Search className="text-gray-500" />
           <input
@@ -82,7 +85,11 @@ const page = () => {
               loading && <RideCardSkeleton driverProfile={true} />
             }
             {
-              !loading && rides?.length == 0 && <div>No Rides Founds</div>
+              !loading && rides?.length == 0 && <div className="w-full flex flex-col gap-3 items-center justify-start">
+                <p className="w-full text-center text-orange-800">
+                  Sorry, There is no ride for this route, Try another location
+                </p>
+              </div>
             }
             {rides?.map((ride: any, i: any) => (
               <SingleRide details={ride} key={i} />
