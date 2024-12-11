@@ -12,6 +12,8 @@ const Authlaoyut = ({ children }: any) => {
     if (res?.data?.success) {
       console.log(res?.data?.details);
       setLocalStorage("rider-profile", JSON.stringify(res?.data?.details))
+    } else {
+      setLocalStorage("rider-profile", JSON.stringify({}))
     }
   };
 
