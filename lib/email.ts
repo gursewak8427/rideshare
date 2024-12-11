@@ -24,14 +24,43 @@ export const sendEmail = async ({
             },
         });
 
-        const info = await transporter.sendMail({
+
+        await new Promise((resolve, reject) => {
+            // verify connection configuration
+            transporter.verify(function (error, success) {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                } else {
+                    console.log("Server is ready to take our messages");
+                    resolve(success);
+                }
+            });
+        });
+
+
+        const mailData = {
             from: `"${appName} Team" <gursewaksaggu2043@gmail.com>`, // Replace with your Gmail address
             to: email, // List of receivers
             subject: subject, // Subject line
             html: html, // HTML body
+        };
+
+        await new Promise((resolve, reject) => {
+            // send mail
+            transporter.sendMail(mailData, (err, info) => {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                } else {
+                    console.log("Message sent successfully");
+                    console.log(info);
+                    resolve(info);
+                }
+            });
         });
 
-        console.log("Message sent: %s", info.messageId);
+
     } catch (error) {
         console.error("Error sending email:", error);
     }
