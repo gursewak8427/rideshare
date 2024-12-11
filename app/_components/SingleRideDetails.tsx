@@ -1,4 +1,4 @@
-import { getRideDetails} from "@/backend/services/rides";
+import { getRideDetails } from "@/backend/services/rides";
 import { PhoneCallIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -47,7 +47,7 @@ const SingleRideDetails = async ({ id }: any) => {
               <img
                 className="rounded-full  w-16 h-16 object-cover"
                 alt="..."
-                src={data?.userImage}
+                src={data?.userImage || "https://cdn-icons-png.flaticon.com/512/3607/3607444.png"}
               />
               <div>
                 <h1 className="font-bold">{data?.username}</h1>
@@ -74,7 +74,7 @@ const SingleRideDetails = async ({ id }: any) => {
               <img
                 className="rounded-full  w-16 h-16 object-cover"
                 alt="..."
-                src={data?.vechileImage}
+                src={data?.vechileImage || "https://img.freepik.com/premium-vector/gamer-steering-wheel-icon-cartoon-vector-esport-computer-cyber-digital_98402-58005.jpg"}
               />
               <div>
                 <h1 className="font-bold">{data?.vehicleModel}</h1>

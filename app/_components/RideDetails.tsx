@@ -43,6 +43,9 @@ const RideDetails = async ({ id }: any) => {
           </h1>
           <h1 className="underline mt-5 text-xl mb-3">Bookings</h1>
           <div className="flex mt-8 flex-col gap-3">
+            {
+              data?.bookings?.length == 0 && <p>No Bookings</p>
+            }
             {data?.bookings?.map((booking: any, i: any) => {
               return (
                 <BookingCard

@@ -54,7 +54,7 @@ const BookingButton = ({ rideid }: { rideid: string }) => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex fixed bottom-5 gap-2">
       <button
         type="button"
         onClick={handleClick}

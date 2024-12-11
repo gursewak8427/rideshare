@@ -62,19 +62,19 @@ const page = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col justify-center items-center">
+                  <div className="flex flex-col justify-center items-center pt-3">
                     <div className="flex justify-center items-center">
                       <Image
                         width={45}
                         alt=".."
-                        src={booking?.riderDetails?.userImage}
+                        src={booking?.riderDetails?.userImage || "https://cdn-icons-png.flaticon.com/512/3607/3607444.png"}
                         height={40}
                         className="rounded-full  w-10 h-10 translate-x-2 -translate-y-2"
                       />
                       <Image
                         width={45}
                         alt=".."
-                        src={booking?.riderDetails?.vechileImage}
+                        src={booking?.riderDetails?.vechileImage || "https://img.freepik.com/premium-vector/gamer-steering-wheel-icon-cartoon-vector-esport-computer-cyber-digital_98402-58005.jpg"}
                         height={40}
                         className="-translate-x-2 w-10 h-10 translate-y-4 rounded-full"
                       />

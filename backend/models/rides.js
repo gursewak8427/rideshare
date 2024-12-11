@@ -18,8 +18,6 @@ const ridesSchema = new mongoose.Schema({
   seats: {
     type: Number,
     required: true,
-    min: 1,
-    max: 5,
   },
   date: {
     type: Date,

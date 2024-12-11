@@ -65,7 +65,7 @@ const SingleRideDetails = ({ }) => {
                 <img
                   className="rounded-full  w-16 h-16 object-cover"
                   alt="..."
-                  src={booking?.riderDetails?.userImage}
+                  src={booking?.riderDetails?.userImage || "https://cdn-icons-png.flaticon.com/512/3607/3607444.png"}
                 />
                 <div>
                   <h1 className="font-bold">{booking?.riderDetails?.username}</h1>
@@ -92,7 +92,7 @@ const SingleRideDetails = ({ }) => {
                 <img
                   className="rounded-full  w-16 h-16 object-cover"
                   alt="..."
-                  src={booking?.riderDetails?.vechileImage}
+                  src={booking?.riderDetails?.vechileImage || "https://img.freepik.com/premium-vector/gamer-steering-wheel-icon-cartoon-vector-esport-computer-cyber-digital_98402-58005.jpg"}
                 />
                 <div>
                   <h1 className="font-bold">{booking?.riderDetails?.vehicleModel}</h1>
