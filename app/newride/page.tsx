@@ -44,6 +44,10 @@ const page = () => {
 
   const onSubmit = async (data: any) => {
     // Enhance data with static fields before submitting
+    if (loading) return;
+
+    setLoading(true)
+
     data = {
       ...data,
       ...locationObj,
@@ -52,7 +56,9 @@ const page = () => {
     try {
       await axios.post("/api/rides", data);
       nav.push("/myrides");
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.error("Error submitting form", error);
     }
   };
@@ -65,13 +71,13 @@ const page = () => {
     });
   }
 
-  if (loading) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <CircularProgress />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="w-full h-screen flex items-center justify-center">
+  //       <CircularProgress />
+  //     </div>
+  //   );
+  // }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-xl">
@@ -185,9 +191,9 @@ const page = () => {
         <div>
           <button
             type="submit"
-            className="py-3 rounded-full px-14 text-white bg-emerald-400 text-md font-bold"
+            className="fixed bottom-5 left-[50%] transform translate-x-[-50%] bottom-10 py-3 rounded-full px-14 text-white bg-emerald-400 text-md font-bold"
           >
-            Publish
+            {loading ? "Please wait..." : "Publish"}
           </button>
         </div>
       </div>

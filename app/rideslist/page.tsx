@@ -49,7 +49,7 @@ const page = () => {
           <ToolbarWithLocation onLocationChange={({ lat, lng }: any) => getMyRides()} />
         </div>
 
-        <h1 className="font-bold my-4 text-center w-full">-- Going {sp.get('route') == "to" ? "to" : "from"} Gurudwara Chupehra Sahib --</h1>
+        <h1 className="font-bold my-4 text-center w-full">-- Going {sp.get('route') == "go" ? "to" : "from"} Gurudwara Chupehra Sahib --</h1>
 
 
         {/* <div className="flex justify-center gap-2 items-center bg-gray-50 p-2 rounded-full border-2 border-gray-300">
