@@ -19,9 +19,13 @@ export const sendEmail = async ({
             port: 465,
             secure: true, // Use `true` for port 465, `false` for port 587
             auth: {
-                user: "gursewaksaggu2043@gmail.com", // Replace with your Gmail address
-                pass: "jjenuqkjxlnjrmha", // Replace with your Gmail password or App Password
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
             },
+            connectionTimeout: 10000,
+            socketTimeout: 10000,
+            logger: true,
+            debug: true
         });
 
 
