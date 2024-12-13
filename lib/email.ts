@@ -1,7 +1,6 @@
 import nodemailer from "nodemailer";
 
 const appName = "Ridesewa";
-const appColor = '#DA38A7';
 
 export const sendEmail = async ({
     email,
@@ -14,58 +13,36 @@ export const sendEmail = async ({
 }) => {
     try {
         console.log("Sending email...");
+
+        // Create Nodemailer transporter
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
-            secure: true, // Use `true` for port 465, `false` for port 587
+            secure: true, // Use SSL for port 465
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
+                user: process.env.EMAIL_USER, // Your Gmail address (from environment variables)
+                pass: process.env.EMAIL_PASS, // Gmail App Password (from environment variables)
             },
-            connectionTimeout: 10000,
-            socketTimeout: 10000,
-            logger: true,
-            debug: true
+            connectionTimeout: 10000, // 10 seconds
+            socketTimeout: 10000, // 10 seconds
         });
 
+        // Verify SMTP configuration
+        await transporter.verify();
 
-        await new Promise((resolve, reject) => {
-            // verify connection configuration
-            transporter.verify(function (error, success) {
-                if (error) {
-                    console.log(error);
-                    reject(error);
-                } else {
-                    console.log("Server is ready to take our messages");
-                    resolve(success);
-                }
-            });
-        });
-
-
+        // Email content
         const mailData = {
-            from: `"${appName} Team" <gursewaksaggu2043@gmail.com>`, // Replace with your Gmail address
-            to: email, // List of receivers
-            subject: subject, // Subject line
-            html: html, // HTML body
+            from: `"${appName} Team" <${process.env.EMAIL_USER}>`, // Sender's email address
+            to: email, // Recipient's email address
+            subject: subject, // Email subject
+            html: html, // Email content in HTML format
         };
 
-        await new Promise((resolve, reject) => {
-            // send mail
-            transporter.sendMail(mailData, (err, info) => {
-                if (err) {
-                    console.error(err);
-                    reject(err);
-                } else {
-                    console.log("Message sent successfully");
-                    console.log(info);
-                    resolve(info);
-                }
-            });
-        });
+        // Send the email
+        const info = await transporter.sendMail(mailData);
 
-
-    } catch (error) {
-        console.error("Error sending email:", error);
+        console.log("Message sent successfully:", info.messageId);
+    } catch (error:any) {
+        console.error("Error sending email:", error.message);
     }
 };
