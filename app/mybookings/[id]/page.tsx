@@ -9,6 +9,7 @@ const SingleRideDetails = ({ }) => {
   const { id } = useParams()
   const [booking, setBooking] = useState<any>({})
   const [loading, setLoading] = useState<any>(true)
+  const [loading1, setLoading1] = useState<any>(false)
 
   const getMyRides = async () => {
     let response = await axios.post('/api/rides/bookings/my', { bookingid: id })
@@ -20,6 +21,21 @@ const SingleRideDetails = ({ }) => {
   useEffect(() => {
     getMyRides()
   }, [id])
+
+
+  const cancelBooking = async () => {
+
+    if (loading1) return;
+
+    setLoading1(true)
+
+    const response = await axios.patch("/api/rides/bookings", { bookingid: id, rideid: booking?.rideDetails?._id, status: "CANCEL" });
+    alert(response?.data?.message)
+    if (response?.data?.success) {
+      window.location.reload()
+    }
+    setLoading1(false)
+  }
 
   return (
     <>
@@ -102,6 +118,19 @@ const SingleRideDetails = ({ }) => {
             </div>
           </div>
         }
+
+
+        <div className="flex fixed bottom-5 gap-2">
+          <button
+            type="button"
+            onClick={cancelBooking}
+            disabled={loading1}
+            className={`py-3 rounded-full px-10 text-white text-md font-bold ${loading1 ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
+              }`}
+          >
+            {loading1 ? "Loading..." : "Cancel Bookings"}
+          </button>
+        </div>
       </div>
     </>
   );

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 export default function LoginPage() {
@@ -11,13 +11,17 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+  const sp = useSearchParams();
+  const url = sp.get("url");
+
   const handleSubmit = async (e: React.FormEvent) => {
     setLoading(true);
     e.preventDefault();
     // Handle login logic here
     const response = await axios.post("/api/users/login", { email, password });
     if (response.data.success) {
-      window.location.href = "/";
+      window.location.href = url || "/";
     } else {
       alert("Invalid Credentials");
     }

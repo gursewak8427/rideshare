@@ -8,6 +8,7 @@ import bookingsModel from "../../../../backend/models/bookings";
 import ridesModel from "../../../../backend/models/rides";
 import usersModel from "../../../../backend/models/users";
 import { sendEmail } from "../../../../lib/email";
+import { checkIsCancelValid } from "@/lib/utils";
 
 //  On click book button
 export const POST = async (req) => {
@@ -139,7 +140,7 @@ export const PATCH = async (req) => {
   await connectdb();
   let body = await req.json();
 
-  const { bookingid, status } = body;
+  const { bookingid, rideid, status } = body;
 
   const cookieStore = await cookies();
 
@@ -154,6 +155,21 @@ export const PATCH = async (req) => {
 
   if (!["PENDING", "ACCEPTED", "REJECTED", "CANCEL"]?.includes(status))
     return NextResponse.json({ message: "Invalid Status", success: false });
+
+
+  if (status == "CANCEL") {
+    const rideDetails = await ridesModel.findById(rideid)
+
+    if (!rideDetails) {
+      return NextResponse.json({ message: "Invalid Ride Id", success: false });
+    }
+
+    console.log({ rideDetails })
+
+    if (!checkIsCancelValid(rideDetails?.date, rideDetails?.time)) {
+      return NextResponse.json({ message: "You can only cancel the ride, before 1 hour of running", success: false });
+    }
+  }
 
   let bookingDetails = await bookingsModel.findByIdAndUpdate(bookingid, { status });
 
