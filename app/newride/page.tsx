@@ -47,9 +47,10 @@ const page = () => {
     if (loading) return;
 
     setLoading(true)
-
+    const datetime = new Date(`${data?.date}T${data?.time}Z`);
     data = {
       ...data,
+      datetime,
       ...locationObj,
     };
 
@@ -191,7 +192,7 @@ const page = () => {
         <div>
           <button
             type="submit"
-            className="fixed bottom-5 left-[50%] transform translate-x-[-50%] bottom-10 py-3 rounded-full px-14 text-white bg-emerald-400 text-md font-bold"
+            className="fixed  left-[50%] transform translate-x-[-50%] bottom-10 py-3 rounded-full px-14 text-white bg-emerald-400 text-md font-bold"
           >
             {loading ? "Please wait..." : "Publish"}
           </button>

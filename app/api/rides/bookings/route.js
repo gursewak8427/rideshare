@@ -32,7 +32,7 @@ export const POST = async (req) => {
 
   console.log({ userId, rideid });
 
-  let user = await usersModel.findById(userId)
+  let user = await usersModel.findById(userId);
 
   if (!user) {
     return NextResponse.json({
@@ -61,7 +61,9 @@ export const POST = async (req) => {
   });
 
   sendEmail({
-    email: user?.email, subject: "You got a new Ride Booking", html: `<!DOCTYPE html>
+    email: user?.email,
+    subject: "You got a new Ride Booking",
+    html: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -98,8 +100,8 @@ export const POST = async (req) => {
         </tr>
     </table>
 </body>
-</html>` })
-
+</html>`,
+  });
 
   return NextResponse.json({
     success: true,
@@ -156,37 +158,43 @@ export const PATCH = async (req) => {
   if (!["PENDING", "ACCEPTED", "REJECTED", "CANCEL"]?.includes(status))
     return NextResponse.json({ message: "Invalid Status", success: false });
 
-
   if (status == "CANCEL") {
-    const rideDetails = await ridesModel.findById(rideid)
+    const rideDetails = await ridesModel.findById(rideid);
 
     if (!rideDetails) {
       return NextResponse.json({ message: "Invalid Ride Id", success: false });
     }
 
-    console.log({ rideDetails })
+    console.log({ rideDetails });
 
     if (!checkIsCancelValid(rideDetails?.date, rideDetails?.time)) {
-      return NextResponse.json({ message: "You can only cancel the ride, before 1 hour of running", success: false });
+      return NextResponse.json({
+        message: "You can only cancel the ride, before 1 hour of running",
+        success: false,
+      });
     }
   }
 
-  let bookingDetails = await bookingsModel.findByIdAndUpdate(bookingid, { status });
+  let bookingDetails = await bookingsModel.findByIdAndUpdate(bookingid, {
+    status,
+  });
 
   if (status == "ACCEPTED") {
-    let ridedetails = await ridesModel.findById(bookingDetails.rideid)
-    ridedetails.seats = ridedetails.seats - 1
+    let ridedetails = await ridesModel.findById(bookingDetails.rideid);
+    ridedetails.seats = ridedetails.seats - 1;
     if (ridedetails?.seats === 0) {
-      ridedetails.status = "STOPPED"
+      ridedetails.status = "STOPPED";
     }
 
-    await ridedetails.save()
+    await ridedetails.save();
   }
 
-  let user = await usersModel.findById(bookingDetails?.userid)
+  let user = await usersModel.findById(bookingDetails?.userid);
 
   sendEmail({
-    email: user?.email, subject: "Booking Status Update", html: `<!DOCTYPE html>
+    email: user?.email,
+    subject: "Booking Status Update",
+    html: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -197,7 +205,9 @@ export const PATCH = async (req) => {
     <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
         <tr>
             <td style="padding: 20px; text-align: center; background-color: #007bff;">
-                <img src="${process?.env?.NEXT_PUBLIC_SERVER_URL}/logo.png" alt="Company Logo" style="max-width: 150px;">
+                <img src="${
+                  process?.env?.NEXT_PUBLIC_SERVER_URL
+                }/logo.png" alt="Company Logo" style="max-width: 150px;">
             </td>
         </tr>
         <tr>
@@ -206,17 +216,23 @@ export const PATCH = async (req) => {
                 <p style="color: #666666;">Dear User,</p>
                 <p style="color: #666666;">We're writing to inform you that the status of your booking has been updated.</p>
                 
-                ${status == "ACCEPTED" ? `<div style="background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 5px; padding: 15px; margin-bottom: 20px;">
+                ${
+                  status == "ACCEPTED"
+                    ? `<div style="background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 5px; padding: 15px; margin-bottom: 20px;">
                     <h2 style="color: #155724; margin-top: 0;" > Current Status: Accepted</h2>
                 <p style="color: #155724; margin-bottom: 0;">Great news! Your booking has been accepted by the driver. They will arrive at the scheduled time and location.</p>
-                </div> ` : status == "REJECTED" && `<div style="background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px; padding: 15px; margin-bottom: 20px;">
+                </div> `
+                    : status == "REJECTED" &&
+                      `<div style="background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px; padding: 15px; margin-bottom: 20px;">
                     <h2 style="color: #721c24; margin-top: 0;">Current Status: Rejected</h2>
                     <p style="color: #721c24; margin-bottom: 0;">We regret to inform you that your booking has been rejected by the driver. This could be due to unforeseen circumstances or scheduling conflicts.</p>
                 </div>`
-      }
+                }
                 <p style="color: #666666;">To view the details of your booking or make any changes, please click the button below:</p>
                 <p style="text-align: center;">
-                    <a href="${process?.env?.NEXT_PUBLIC_SERVER_URL}/mybookings/${bookingid}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px;">View Booking Details</a>
+                    <a href="${
+                      process?.env?.NEXT_PUBLIC_SERVER_URL
+                    }/mybookings/${bookingid}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px;">View Booking Details</a>
                 </p>
                 <p style="color: #666666;">If you have any questions or need further assistance, please don't hesitate to contact our customer support team.</p>
                 <p style="color: #666666;">Thank you for choosing our service!</p>
@@ -232,7 +248,8 @@ export const PATCH = async (req) => {
   </tr>
     </table >
 </body >
-</html > ` })
+</html > `,
+  });
 
   return NextResponse.json({
     success: true,

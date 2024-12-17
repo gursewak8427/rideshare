@@ -19,12 +19,8 @@ const ridesSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  date: {
+  datetime: {
     type: Date,
-    required: true,
-  },
-  time: {
-    type: String,
     required: true,
   },
   status: {
@@ -32,6 +28,7 @@ const ridesSchema = new mongoose.Schema({
     enum: ["ACTIVE", "STOPPED", "CLOSED"],
     default: "ACTIVE"
   },
+
   coordinates: {
     type: {
       type: String,
