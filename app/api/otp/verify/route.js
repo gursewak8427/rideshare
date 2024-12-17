@@ -9,6 +9,8 @@ export const POST = async req => {
     await connectdb()
     const data = await req.json()
 
+    console.log(data)
+
     if (!data.email || !data.otp) {
       return NextResponse.json({ message: 'fields are required to verify otp', success: false })
     }
@@ -17,6 +19,9 @@ export const POST = async req => {
       .findOne({ email: data?.email })
       .sort({ createdAt: -1 })
       .limit(1)
+      .lean()
+
+    console.log(user)
 
     if (!user) {
       return NextResponse.json({ message: 'no such user found', success: false })
@@ -26,10 +31,13 @@ export const POST = async req => {
       return NextResponse.json({ message: 'otp has expired', success: false })
     }
 
-    if (user.otp == otp) {
-      await userModel.create(data)
-      await optverify.deleteMany({ email })
-      return NextResponse.json({ message: 'user created', success: true})
+    if (user?.otp == data?.otp) {
+      const user = await userModel.create({
+        email: data?.email,
+        password: data?.password
+      })
+      await optverify.deleteMany({ email: data?.email })
+      return NextResponse.json({ message: 'user created', success: true, user})
     }
   } catch (error) {
     return NextResponse.json({message: error.message || 'something went wrong', success: false})

@@ -10,8 +10,8 @@ export const GET = async (req) => {
   try {
     await connectdb();
 
-    const cookieStore = cookies(); // No need for await here
-    const token = await cookieStore.get("rider-secret")?.value;
+    const cookieStore = await cookies(); // No need for await here
+    const token = cookieStore.get("rider-secret")?.value;
 
     if (!token) {
       return NextResponse.json(

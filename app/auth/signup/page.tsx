@@ -31,7 +31,10 @@ export default function SignupPage () {
     const response = await axios.post('/api/otp/verify', otpInfo)
     if (response.data.success) {
       router.replace('/riderprofile')
+      setOpen(false)
     }
+    window.alert(response?.data?.message)
+    setOpen(false)
   }
   // Validate confirm password matches password
   const password = watch('password')
