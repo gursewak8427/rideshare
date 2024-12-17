@@ -80,6 +80,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <Link href={"/auth/forgotpassword"} className="text-blue-600 cursor-pointer">Forgot Password</Link>
               </div>
             </div>
 

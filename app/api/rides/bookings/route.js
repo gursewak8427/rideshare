@@ -174,13 +174,13 @@ export const PATCH = async (req) => {
   let bookingDetails = await bookingsModel.findByIdAndUpdate(bookingid, { status });
 
   if (status == "ACCEPTED") {
-    // let ridedetails = await ridesModel.findById(bookingDetails.rideid)
-    // ridedetails.seats = ridedetails.seats - 1
-    // if (ridedetails?.seats === 0) {
-    //   ridedetails.status = "STOPPED"
-    // }
+    let ridedetails = await ridesModel.findById(bookingDetails.rideid)
+    ridedetails.seats = ridedetails.seats - 1
+    if (ridedetails?.seats === 0) {
+      ridedetails.status = "STOPPED"
+    }
 
-    // await ridedetails.save()
+    await ridedetails.save()
   }
 
   let user = await usersModel.findById(bookingDetails?.userid)

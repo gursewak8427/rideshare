@@ -1,17 +1,17 @@
 import { NextResponse } from "next/server";
 
 const nodemailer = require("nodemailer");
-const optverify = require("../../../backend/models/email-verify");
-import connectdb from "../../../backend/config/db.config";
-import User from "../../../backend/models/users";
+const optverify = require("../../../../backend/models/email-verify");
+
+import connectdb from "../../../../backend/config/db.config";
+import User from "../../../../backend/models/users";
 export const POST = async (req) => {
   try {
     await connectdb();
     const { email } = await req.json();
-    const alreadyUser = await User.findOne({ email });
-
-    if (alreadyUser) {
-      return NextResponse.json({ message: "User already exists", success: false });
+    const alreadyUser=await User.findOne({email})
+    if(!alreadyUser){
+        throw  "User does not exists"
     }
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -58,7 +58,7 @@ export const POST = async (req) => {
     return NextResponse.json({ message: "mail sent", success: true });
   } catch (error) {
     return NextResponse.json({
-      message: error.message || "something went wrong",
+      message: error || "something went wrong",
       success: false,
     });
   }

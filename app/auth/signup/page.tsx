@@ -24,6 +24,7 @@ export default function SignupPage () {
     if (response.data.success) {
       setOpen(true)
     }
+    window.alert(response?.data?.message)
   }
 
   const onFormSubmit = async (data: any) => {
