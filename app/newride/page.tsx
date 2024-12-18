@@ -45,31 +45,31 @@ const page = () => {
   const onSubmit = async (data: any) => {
     // Prevent submission if loading is already in progress
     if (loading) return;
-  
+
     // Set loading state to true while the request is being processed
     setLoading(true);
-  
+
     // Ensure both date and time are provided
     if (!data?.date || !data?.time) {
       console.error("Date or Time is missing");
       setLoading(false);
       return;
     }
-  
+
     try {
       // Construct a UTC datetime from the provided date and time
-      const datetime = new Date(`${data?.date}T${data?.time}Z`);
-  
+      const datetime = new Date(`${data?.date}T${data?.time}`).toISOString();
+
       // Enhance the data object with additional fields
       const enhancedData = {
         ...data,
         datetime,
         ...locationObj,
       };
-  
+
       // Make the API call to submit the data
       await axios.post("/api/rides", enhancedData);
-  
+
       // Navigate to the 'myrides' page on successful submission
       nav.push("/myrides");
     } catch (error) {
@@ -79,7 +79,7 @@ const page = () => {
       setLoading(false);
     }
   };
-    
+
 
   const handleLocationSelect = ({ lat, lng }: any) => {
     console.log({ lat, lng })

@@ -10,7 +10,7 @@ const SingleRide = ({ details }: any) => {
           <div className="w-[90%]">
             <h1 className="text-md font-bold">{details?.location}</h1>
             <p className="text-xs text-gray-600">
-              {new Date(details?.date)?.toLocaleDateString()},{details?.time}
+              {new Date(details?.datetime)?.toLocaleString()}
             </p>
             <p className="mt-8 text-xs font-bold text-gray-600">
               {details?.riderDetails?.vehicleModel}
