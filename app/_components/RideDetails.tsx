@@ -13,13 +13,16 @@ const RideDetails = async ({ id }: any) => {
       <div className="h-full p-3 flex flex-col justify-between items-center pb-[100px] relative">
         <div className="w-[100%]">
           <h1 className="text-xl text-black font-bold mt-5">
-            {new Date(data?.datetime).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
+            {new Date(data?.datetime).toLocaleDateString("en-US", {
+              weekday: "long",
+              day: "2-digit",
+              month: "long",
             })}
           </h1>
           <div className="flex mt-5 gap-2">
-            <div className="text-xs font-bold">{data?.datetime}</div>
+            <div className="text-xs font-bold">
+              {new Date(data?.datetime)?.toLocaleTimeString()}
+            </div>
             <div className="flex flex-col justify-center items-center">
               <div className="w-[10px] h-[10px] border-[1px] border-black rounded-full"></div>
               <div className="w-1 h-[50px] bg-black"></div>

@@ -167,12 +167,13 @@ export const PATCH = async (req) => {
 
     console.log({ rideDetails });
 
-    if (!checkIsCancelValid(rideDetails?.date, rideDetails?.time)) {
+    if (!checkIsCancelValid(rideDetails?.datetime)) {
       return NextResponse.json({
         message: "You can only cancel the ride, before 1 hour of running",
         success: false,
       });
     }
+
   }
 
   let bookingDetails = await bookingsModel.findByIdAndUpdate(bookingid, {
