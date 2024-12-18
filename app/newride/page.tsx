@@ -43,26 +43,43 @@ const page = () => {
   }, []);
 
   const onSubmit = async (data: any) => {
-    // Enhance data with static fields before submitting
+    // Prevent submission if loading is already in progress
     if (loading) return;
-
-    setLoading(true)
-    const datetime = new Date(`${data?.date}T${data?.time}Z`);
-    data = {
-      ...data,
-      datetime,
-      ...locationObj,
-    };
-
+  
+    // Set loading state to true while the request is being processed
+    setLoading(true);
+  
+    // Ensure both date and time are provided
+    if (!data?.date || !data?.time) {
+      console.error("Date or Time is missing");
+      setLoading(false);
+      return;
+    }
+  
     try {
-      await axios.post("/api/rides", data);
+      // Construct a UTC datetime from the provided date and time
+      const datetime = new Date(`${data?.date}T${data?.time}Z`);
+  
+      // Enhance the data object with additional fields
+      const enhancedData = {
+        ...data,
+        datetime,
+        ...locationObj,
+      };
+  
+      // Make the API call to submit the data
+      await axios.post("/api/rides", enhancedData);
+  
+      // Navigate to the 'myrides' page on successful submission
       nav.push("/myrides");
-      setLoading(false)
     } catch (error) {
-      setLoading(false)
       console.error("Error submitting form", error);
+    } finally {
+      // Reset the loading state whether the request succeeds or fails
+      setLoading(false);
     }
   };
+    
 
   const handleLocationSelect = ({ lat, lng }: any) => {
     console.log({ lat, lng })
