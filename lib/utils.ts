@@ -101,3 +101,31 @@ export const checkIsCancelValid = (datetime: any): boolean => {
 
   return true;
 };
+export const checkifRideisinPast = (datetime: any): boolean => {
+  // Parse the input UTC datetime
+  const targetTime = new Date(datetime);
+
+  // Validate the parsed date
+  if (isNaN(targetTime.getTime())) {
+    throw new Error("Invalid UTC datetime format");
+  }
+
+  // Get the current time in UTC
+  const currentTime = new Date(new Date().toISOString()); // Ensure UTC
+
+  const timeDifference = targetTime.getTime() - currentTime.getTime();
+  console.log({
+    currentTime: currentTime.toISOString(),
+    targetTime: targetTime.toISOString(),
+  });
+  console.log({ timeDifference });
+
+  // Convert the difference to hours
+  const timeLeftInHours = timeDifference / (1000 * 60 * 60);
+  console.log({ timeLeftInHours });
+
+  // Return true if time left is less than 1 hour and greater than 0
+  if(timeLeftInHours <0) return false;
+
+  return true;
+};

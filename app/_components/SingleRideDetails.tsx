@@ -91,7 +91,8 @@ const SingleRideDetails = async ({ id }: any) => {
             </div>
           </div>
         </div>
-        <BookingButton rideid={id} />
+        
+        <BookingButton datetime={data?.datetime} rideid={id} />
       </div>
     </>
   );
