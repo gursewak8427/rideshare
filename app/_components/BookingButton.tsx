@@ -18,13 +18,13 @@ const BookingButton = ({
   const handleClick = async () => {
     setLoading(true); // Start loading state
     try {
-      if(checkifRideisinPast(datetime)){
+      if (checkifRideisinPast(datetime)) {
         const response = await axios.get("/api/users/profile");
 
         if (response?.data?.success) {
           // User is authenticated
           const response2 = await axios.post("/api/rides/bookings", { rideid });
-  
+
           if (!response2?.data?.success) {
             // Booking failed
             alert(response2?.data?.message || "Failed to book the ride.");
@@ -37,11 +37,9 @@ const BookingButton = ({
           // Profile retrieval failed
           alert(response?.data?.message || "Failed to fetch user profile.");
         }
+      } else {
+        alert("you can book the past ride");
       }
-      else{
-        alert("you can book the past ride")
-      }
-    
     } catch (error: any) {
       console.error("Error occurred during booking:", {
         error: error?.message,
@@ -55,7 +53,7 @@ const BookingButton = ({
         router.push(`/auth/login?url=/rideslist/${rideid}`);
       } else if (error?.response?.status === 404) {
         // Redirect to profile page
-        router.push("/riderprofile");
+        router.push(`/riderprofile?url=/rideslist/${rideid}`);
       } else {
         // Generic error handling
         alert("Something went wrong. Please try again.");
