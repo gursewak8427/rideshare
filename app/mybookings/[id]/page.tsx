@@ -148,18 +148,22 @@ const SingleRideDetails = ({}) => {
           </div>
         )}
 
-        <div className="flex fixed bottom-5 gap-2">
-          <button
-            type="button"
-            onClick={cancelBooking}
-            disabled={loading1}
-            className={`py-3 rounded-full px-10 text-white text-md font-bold ${
-              loading1 ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
-            }`}
-          >
-            {loading1 ? "Loading..." : "Cancel Bookings"}
-          </button>
-        </div>
+        {booking?.status == "CANCEL" ? (
+          <div className="flex fixed bottom-5 gap-2 italic">Ride Canceled</div>
+        ) : (
+          <div className="flex fixed bottom-5 gap-2">
+            <button
+              type="button"
+              onClick={cancelBooking}
+              disabled={loading1}
+              className={`py-3 rounded-full px-10 text-white text-md font-bold ${
+                loading1 ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
+              }`}
+            >
+              {loading1 ? "Loading..." : "Cancel Bookings"}
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
