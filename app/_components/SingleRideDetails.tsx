@@ -3,6 +3,7 @@ import { PhoneCallIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import BookingButton from "./BookingButton";
+import { FormattedDate, Time } from "./Time"
 
 const SingleRideDetails = async ({ id }: any) => {
   const data: any = await getRideDetails(id);
@@ -12,15 +13,11 @@ const SingleRideDetails = async ({ id }: any) => {
       <div className="h-full p-3 flex  flex-col justify-between items-center pb-[100px] relative">
         <div className="w-[100%]">
           <h1 className="text-xl text-black font-bold mt-5">
-            {new Date(data?.datetime).toLocaleDateString("en-US", {
-              weekday: "long",
-              day: "2-digit",
-              month: "long",
-            })}
+            <FormattedDate datetime={data?.datetime} />
           </h1>
           <div className="flex mt-5 gap-2">
             <div className="text-xs font-bold">
-              {new Date(data?.datetime)?.toLocaleString()?.split(", ")[1]}
+              <Time datetime={data?.datetime} />
             </div>
             <div className="flex flex-col justify-center items-center">
               <div className="w-[10px] h-[10px] border-[1px] border-black rounded-full"></div>
@@ -91,7 +88,7 @@ const SingleRideDetails = async ({ id }: any) => {
             </div>
           </div>
         </div>
-        
+
         <BookingButton datetime={data?.datetime} rideid={id} />
       </div>
     </>

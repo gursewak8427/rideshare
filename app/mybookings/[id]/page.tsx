@@ -4,8 +4,9 @@ import axios from "axios";
 import { PhoneCallIcon } from "lucide-react";
 import RideDetailsLoading from "@/app/_components/RideDetailsLoading";
 import { useParams } from "next/navigation";
+import { FormattedDate, Time } from "@/app/_components/Time";
 
-const SingleRideDetails = ({}) => {
+const SingleRideDetails = ({ }) => {
   const { id } = useParams();
   const [booking, setBooking] = useState<any>({});
   const [loading, setLoading] = useState<any>(true);
@@ -50,20 +51,13 @@ const SingleRideDetails = ({}) => {
           <div className="w-[100%]">
             <div className="flex justify-between items-center mt-5">
               <h1 className="text-xl text-black font-bold">
-                {new Date(booking?.rideDetails?.datetime)?.toLocaleDateString(
-                  "en-US",
-                  {
-                    weekday: "long",
-                    day: "2-digit",
-                    month: "long",
-                  }
-                )}
+                <FormattedDate datetime={booking?.rideDetails?.datetime} />
               </h1>
               <h1>{booking?.status}</h1>
             </div>
             <div className="flex mt-5 gap-2">
               <div className="text-xs font-bold">
-              {new Date(booking?.rideDetails?.datetime)?.toLocaleString()?.split(", ")[1]}
+                <Time datetime={booking?.rideDetails?.datetime} />
               </div>
               <div className="flex flex-col justify-center items-center">
                 <div className="w-[10px] h-[10px] border-[1px] border-black rounded-full"></div>
@@ -156,9 +150,8 @@ const SingleRideDetails = ({}) => {
               type="button"
               onClick={cancelBooking}
               disabled={loading1}
-              className={`py-3 rounded-full px-10 text-white text-md font-bold ${
-                loading1 ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
-              }`}
+              className={`py-3 rounded-full px-10 text-white text-md font-bold ${loading1 ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
+                }`}
             >
               {loading1 ? "Loading..." : "Cancel Bookings"}
             </button>
