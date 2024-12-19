@@ -31,31 +31,40 @@ export const POST = async (req) => {
   delete body.longitude;
 
   const newride = await addride({
-    ...body, coordinates: { type: "Point", coordinates: [longitude, latitude] },
+    ...body,
+    coordinates: { type: "Point", coordinates: [longitude, latitude] },
   });
   return NextResponse.json(newride);
 };
 
 export const GET = async (req) => {
   await connectdb();
-  const searchParams = req.nextUrl.searchParams
-  const routetype = searchParams.get('routetype')
-  const latitude = searchParams.get('lat')
-  const longitude = searchParams.get('long')
+  const searchParams = req.nextUrl.searchParams;
+  const routetype = searchParams.get("routetype");
+  const latitude = searchParams.get("lat");
+  const longitude = searchParams.get("long");
   const radius = 5000;
+
+  console.log(new Date(), "--current date time on server");
 
   const rides = await ridesModel.aggregate([
     {
       $match: {
         routetype,
         status: "ACTIVE",
-        ...((latitude && longitude) && {
-          coordinates: {
-            $geoWithin: {
-              $centerSphere: [[parseFloat(longitude), parseFloat(latitude)], radius / 6378100], // Radius in radians
+        datetime: { $gt: new Date() }, // Match only future rides (use Date object)
+        seats: { $gt: 1 }, // Match only rides with more than 1 seat
+        ...(latitude &&
+          longitude && {
+            coordinates: {
+              $geoWithin: {
+                $centerSphere: [
+                  [parseFloat(longitude), parseFloat(latitude)],
+                  radius / 6378100,
+                ], // Radius in radians
+              },
             },
-          },
-        })
+          }),
       }, // Match the routetype
     },
     {
@@ -81,14 +90,13 @@ export const GET = async (req) => {
   });
 };
 
-
 export const PATCH = async (req) => {
   await connectdb();
 
   const body = await req?.json();
   const { id, data } = body;
 
-  console.log({ body })
+  console.log({ body });
 
   if (!id) {
     return NextResponse.json({
@@ -97,11 +105,11 @@ export const PATCH = async (req) => {
     });
   }
 
-  await ridesModel.findByIdAndUpdate(id, data)
+  await ridesModel.findByIdAndUpdate(id, data);
 
   return NextResponse.json({
     message: "Ride Update Successfully",
-    success: true
+    success: true,
   });
 };
 

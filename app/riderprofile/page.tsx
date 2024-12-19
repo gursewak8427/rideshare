@@ -20,6 +20,7 @@ interface FormData {
 
 export default function VehicleForm() {
   const sp = useSearchParams();
+  const [loading, setLoading] = useState(false);
   const url = sp.get("url");
 
   const router = useRouter();
@@ -48,6 +49,10 @@ export default function VehicleForm() {
   const onSubmit: SubmitHandler<FormData> = async (data: any) => {
     delete data?._id;
 
+    if (loading) return;
+
+    setLoading(true);
+
     const response = await axios.post("/api/riders", data);
     if (response.data.success) {
       alert("Profile Updated");
@@ -56,6 +61,8 @@ export default function VehicleForm() {
     }
 
     if (url) window.location.href = url;
+
+    setLoading(false);
   };
 
   return (
@@ -154,7 +161,7 @@ export default function VehicleForm() {
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors mt-6"
         >
-          Update
+          {loading ? "Updating...." : "Update"}
         </button>
 
         <button
