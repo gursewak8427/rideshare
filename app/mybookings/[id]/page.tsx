@@ -63,7 +63,7 @@ const SingleRideDetails = ({}) => {
             </div>
             <div className="flex mt-5 gap-2">
               <div className="text-xs font-bold">
-                {new Date(booking?.rideDetails?.datetime)?.toLocaleTimeString()}
+              {new Date(booking?.rideDetails?.datetime)?.toLocaleString()?.split(", ")[1]}
               </div>
               <div className="flex flex-col justify-center items-center">
                 <div className="w-[10px] h-[10px] border-[1px] border-black rounded-full"></div>
