@@ -1,11 +1,9 @@
-import { getRideDetails } from "@/backend/services/rides";
+"use client"
 import BookingCard from "@/app/_components/BookingCard";
 import React from "react";
 import { RideDetailsButton } from "@/app/_components/RideDetailsButton";
 
-const RideDetails = async ({ id }: any) => {
-  const data: any = await getRideDetails(id);
-
+const RideDetails = async ({ data }: any) => {
   console.log({ data });
 
   return (
@@ -56,7 +54,7 @@ const RideDetails = async ({ id }: any) => {
             })}
           </div>
         </div>
-        <RideDetailsButton data={JSON.parse(JSON.stringify(data))} id={id} />
+        <RideDetailsButton data={JSON.parse(JSON.stringify(data))} id={data?._id} />
       </div>
     </>
   );
