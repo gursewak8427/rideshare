@@ -1,9 +1,13 @@
 import React from "react";
 import RideDetails from "../../_components/RideDetails";
-const page = ({ params }) => {
+import { getRideDetails } from "@/backend/services/rides";
+
+const page = async ({ params }) => {
+  const data = await getRideDetails(params?.id);
+
   return (
     <>
-      <RideDetails id={params?.id}></RideDetails>
+      <RideDetails data={data}></RideDetails>
     </>
   );
 };

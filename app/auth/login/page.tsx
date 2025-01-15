@@ -80,7 +80,12 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <Link href={"/auth/forgotpassword"} className="text-blue-600 cursor-pointer">Forgot Password</Link>
+                <Link
+                  href={"/auth/forgotpassword"}
+                  className="text-blue-600 cursor-pointer"
+                >
+                  Forgot Password
+                </Link>
               </div>
             </div>
 
@@ -106,7 +111,7 @@ export default function LoginPage() {
 
             <div className="mt-6 text-center">
               <Link
-                href="/auth/signup"
+                href={url ? `/auth/signup?url=${url}` : "/auth/signup"}
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 Don't have an account? Sign up

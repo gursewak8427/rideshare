@@ -12,7 +12,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import MapWithLocationPicker from "@/app/_components/MapLocationPicker";
-import ToolbarWithLocation from "@/app/_components/ToolbarWithLocation"
+import ToolbarWithLocation from "@/app/_components/ToolbarWithLocation";
 
 const page = () => {
   const nav = useRouter();
@@ -25,9 +25,7 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [locationObj, setLocationObj] = useState<any>({ lat: -1, lng: -1 });
 
-  const handleLocationChange = ({ lat, lng }: any) => {
-
-  };
+  const handleLocationChange = ({ lat, lng }: any) => {};
   // const findRide = async () => {
   //   let res = await axios.get("/api/rides");
   //   console.log({ data: res?.data });
@@ -80,14 +78,13 @@ const page = () => {
     }
   };
 
-
   const handleLocationSelect = ({ lat, lng }: any) => {
-    console.log({ lat, lng })
+    console.log({ lat, lng });
     setLocationObj({
       latitude: lat,
       longitude: lng,
     });
-  }
+  };
 
   // if (loading) {
   //   return (
@@ -140,7 +137,10 @@ const page = () => {
 
           {/* Location input field */}
           <div className="w-full space-y-3">
-            <ToolbarWithLocation onLocationChange={handleLocationSelect} isSave={false} />
+            <ToolbarWithLocation
+              onLocationChange={handleLocationSelect}
+              isSave={false}
+            />
             {/* <MapWithLocationPicker onLocationChange={handleLocationChange} /> */}
 
             <div className="flex flex-col">
@@ -156,9 +156,7 @@ const page = () => {
               </span>
             )} */}
             </div>
-
           </div>
-
 
           {/* Select dropdown for seats */}
           <div className="flex flex-col">
@@ -202,8 +200,6 @@ const page = () => {
             />
           </div>
         </div>
-
-
 
         {/* Submit Button */}
         <div>

@@ -3,6 +3,7 @@ import { PhoneCallIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import BookingButton from "./BookingButton";
+import { FormattedDate, Time } from "./Time"
 
 const SingleRideDetails = async ({ id }: any) => {
   const data: any = await getRideDetails(id);
@@ -12,14 +13,12 @@ const SingleRideDetails = async ({ id }: any) => {
       <div className="h-full p-3 flex  flex-col justify-between items-center pb-[100px] relative">
         <div className="w-[100%]">
           <h1 className="text-xl text-black font-bold mt-5">
-            {data?.date.toLocaleDateString("en-US", {
-              weekday: "long",
-              day: "2-digit",
-              month: "long",
-            })}
+            <FormattedDate datetime={data?.datetime} />
           </h1>
           <div className="flex mt-5 gap-2">
-            <div className="text-xs font-bold">{data?.time}</div>
+            <div className="text-xs font-bold">
+              <Time datetime={data?.datetime} />
+            </div>
             <div className="flex flex-col justify-center items-center">
               <div className="w-[10px] h-[10px] border-[1px] border-black rounded-full"></div>
               <div className="w-1 h-[50px] bg-black"></div>
@@ -47,7 +46,10 @@ const SingleRideDetails = async ({ id }: any) => {
               <img
                 className="rounded-full  w-16 h-16 object-cover"
                 alt="..."
-                src={data?.userImage || "https://cdn-icons-png.flaticon.com/512/3607/3607444.png"}
+                src={
+                  data?.userImage ||
+                  "https://cdn-icons-png.flaticon.com/512/3607/3607444.png"
+                }
               />
               <div>
                 <h1 className="font-bold">{data?.username}</h1>
@@ -74,7 +76,10 @@ const SingleRideDetails = async ({ id }: any) => {
               <img
                 className="rounded-full  w-16 h-16 object-cover"
                 alt="..."
-                src={data?.vechileImage || "https://img.freepik.com/premium-vector/gamer-steering-wheel-icon-cartoon-vector-esport-computer-cyber-digital_98402-58005.jpg"}
+                src={
+                  data?.vechileImage ||
+                  "https://img.freepik.com/premium-vector/gamer-steering-wheel-icon-cartoon-vector-esport-computer-cyber-digital_98402-58005.jpg"
+                }
               />
               <div>
                 <h1 className="font-bold">{data?.vehicleModel}</h1>
@@ -83,7 +88,8 @@ const SingleRideDetails = async ({ id }: any) => {
             </div>
           </div>
         </div>
-        <BookingButton rideid={id} />
+
+        <BookingButton datetime={data?.datetime} rideid={id} />
       </div>
     </>
   );
