@@ -14,7 +14,7 @@ yarn build
 
 # Start the project using PM2
 echo "Starting the project with PM2..."
-pm2 start "yarn dev" --name nextjs-app
+pm2 start "yarn start" --name nextjs-app
 
 # Save PM2 process list
 echo "Saving PM2 process list..."
