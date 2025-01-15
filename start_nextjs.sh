@@ -1,16 +1,12 @@
 #!/bin/bash
 
-# Update system packages
-echo "Updating system packages..."
-sudo apt update && sudo apt upgrade -y
-
-# # Navigate to the project directory
-# echo "Navigating to project directory..."
-# cd /path/to/your/project
+# Pull the latest code
+echo "Pulling the latest code from Git repository..."
+git pull
 
 # Install dependencies
 echo "Installing dependencies..."
-yarn
+yarn 
 
 # Build the project
 echo "Building the project..."
@@ -25,7 +21,5 @@ echo "Saving PM2 process list..."
 pm2 save
 
 # Display running PM2 processes
-echo "Listing PM2 processes..."
-pm2 list
-
 echo "Next.js app is now running with PM2!"
+pm2 list
