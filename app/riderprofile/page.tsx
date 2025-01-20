@@ -101,61 +101,65 @@ export default function VehicleForm() {
           <p className="text-red-600">{errors.phoneNumber.message}</p>
         )}
 
-        <p className="italic border-b pb-2 font-semibold text-gray-700">
-          Following details is required, if you want to publish your ride
-        </p>
+        {
+          <div id="driver-profile-fields">
+            <p className="italic border-b pb-2 font-semibold text-gray-700">
+              Following details is required, if you want to publish your ride
+            </p>
 
-        <input
-          {...register("address")}
-          placeholder="Address"
-          className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-        />
-        {errors.address && (
-          <p className="text-red-600">{errors.address.message}</p>
-        )}
-
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            {...register("city")}
-            placeholder="City"
-            className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
-          <input
-            {...register("province")}
-            placeholder="Province"
-            className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
-        </div>
-
-        <div className="mt-8">
-          <h2 className="text-lg font-medium mb-4">Vehicle Details</h2>
-          <div className="flex flex-col items-center mb-6">
-            <FileInput
-              isRound={false}
-              watch={watch}
-              setValue={setValue}
-              name="vechileImage"
+            <input
+              {...register("address")}
+              placeholder="Address"
+              className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
             />
+            {errors.address && (
+              <p className="text-red-600">{errors.address.message}</p>
+            )}
+
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                {...register("city")}
+                placeholder="City"
+                className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+              />
+              <input
+                {...register("province")}
+                placeholder="Province"
+                className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+              />
+            </div>
+
+            <div className="mt-8">
+              <h2 className="text-lg font-medium mb-4">Vehicle Details</h2>
+              <div className="flex flex-col items-center mb-6">
+                <FileInput
+                  isRound={false}
+                  watch={watch}
+                  setValue={setValue}
+                  name="vechileImage"
+                />
+              </div>
+
+              <input
+                {...register("vehicleModel")}
+                placeholder="Vehicle Model"
+                className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+              />
+              {errors.vehicleModel && (
+                <p className="text-red-600">{errors.vehicleModel.message}</p>
+              )}
+
+              <input
+                {...register("vehicleNumber")}
+                placeholder="Vehicle Number"
+                className="w-full px-4 py-3 mt-5 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+              />
+              {errors.vehicleNumber && (
+                <p className="text-red-600">{errors.vehicleNumber.message}</p>
+              )}
+            </div>
           </div>
-
-          <input
-            {...register("vehicleModel")}
-            placeholder="Vehicle Model"
-            className="w-full px-4 py-3 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
-          {errors.vehicleModel && (
-            <p className="text-red-600">{errors.vehicleModel.message}</p>
-          )}
-
-          <input
-            {...register("vehicleNumber")}
-            placeholder="Vehicle Number"
-            className="w-full px-4 py-3 mt-5 rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
-          {errors.vehicleNumber && (
-            <p className="text-red-600">{errors.vehicleNumber.message}</p>
-          )}
-        </div>
+        }
 
         <button
           type="submit"

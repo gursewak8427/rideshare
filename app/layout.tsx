@@ -33,7 +33,9 @@ export default function RootLayout({
       >
         <Authlaoyut>
           <Header />
-          <div className="max-w-3xl pb-[100px] relative mx-auto">{children}</div>
+          <div className="max-w-3xl pb-[100px] relative mx-auto">
+            {children}
+          </div>
           {/* Footer Navigation */}
         </Authlaoyut>
       </body>

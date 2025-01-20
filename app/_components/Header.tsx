@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { CiCirclePlus, CiUser } from "react-icons/ci";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import { getLocalStorage } from "@/lib/utils";
+import { SwitchUser } from "./SwitchUser";
 
 const Header = () => {
   const path = usePathname();
@@ -57,12 +58,15 @@ const Header = () => {
 
         {/* Right Section: Profile or Add New Ride */}
         <div className="flex items-center space-x-4">
+          <SwitchUser />
           {!isNewRidePage && !isRideDetailsPage && authToken && (
             <Link
-              href={`${userProfile && isDriverProfileComplete
-                ? "/newride"
-                : "/riderprofile?url=/newride"
-                }`}
+              id="add-ride"
+              href={`${
+                userProfile && isDriverProfileComplete
+                  ? "/newride"
+                  : "/riderprofile?url=/newride"
+              }`}
             >
               <CiCirclePlus className="w-8 h-8 text-gray-600 cursor-pointer" />
             </Link>
@@ -72,6 +76,7 @@ const Header = () => {
               <CiUser className="w-8 h-8 text-gray-600 cursor-pointer" />
             </Link>
           )}
+
           {!authToken && <Link href="/auth/login">Sign in</Link>}
         </div>
       </div>

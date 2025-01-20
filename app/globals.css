@@ -70,3 +70,29 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.role-driver #my-bookings-button {
+  display: none;
+}
+.role-driver #my-rides-button {
+  display: block;
+}
+.role-driver #add-ride {
+  display: block;
+}
+.role-driver #driver-profile-fields{
+  display: block;
+}
+
+.role-user #my-bookings-button {
+  display: block;
+}
+.role-user #my-rides-button {
+  display: none;
+}
+.role-user #add-ride {
+  display: none;
+}
+.role-user #driver-profile-fields{
+  display: none;
+}
