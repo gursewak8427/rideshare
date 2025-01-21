@@ -91,26 +91,37 @@ export const GET = async (req) => {
 };
 
 export const PATCH = async (req) => {
-  await connectdb();
+  try {
+    await connectdb();
 
-  const body = await req?.json();
-  const { id, data } = body;
+    const body = await req?.json();
+    const { id, data } = body;
 
-  console.log({ body });
+    console.log({ body });
 
-  if (!id) {
+    if (!id) {
+      return NextResponse.json({
+        message: "Id is required",
+        success: false,
+      });
+    }
+
+    console.log({ id, data });
+
+    await ridesModel.findByIdAndUpdate(id, data);
+
     return NextResponse.json({
-      message: "Id is required",
+      message: "Ride Update Successfully",
+      success: true,
+    });
+  } catch (error) {
+    console.log({ error });
+
+    return NextResponse.json({
+      message: "Something wrong",
       success: false,
     });
   }
-
-  await ridesModel.findByIdAndUpdate(id, data);
-
-  return NextResponse.json({
-    message: "Ride Update Successfully",
-    success: true,
-  });
 };
 
 export const DELETE = async (req) => {

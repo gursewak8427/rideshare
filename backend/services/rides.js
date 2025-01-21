@@ -38,26 +38,21 @@ export const getRideDetails = async (_id) => {
   try {
     await connectdb();
 
-
-    const ride = await ridesModel
-      .findOne({ _id })
-      .populate("userid")
-      .lean();
+    const ride = await ridesModel.findOne({ _id }).populate("userid").lean();
 
     if (!ride) {
       throw new Error("Ride not found");
     }
 
-
     const profile = await riderModel.findOne({ userid: ride.userid }).lean();
-
 
     const bookingsList = await bookings.find({ rideid: _id }).lean();
 
-
     const bookingListWithProfiles = await Promise.all(
       bookingsList.map(async (booking) => {
-        const userprofile = await riderModel.findOne({ userid: booking.userid }).lean();
+        const userprofile = await riderModel
+          .findOne({ userid: booking.userid })
+          .lean();
         return {
           bookingId: booking?._id,
           ...booking,
@@ -66,8 +61,9 @@ export const getRideDetails = async (_id) => {
       })
     );
 
-
     return {
+      rideId: _id,
+      profileId: profile?._id,
       ...ride,
       ...profile,
       bookings: bookingListWithProfiles,
@@ -81,20 +77,13 @@ export const getRideDetailsUser = async (_id) => {
   try {
     await connectdb();
 
-
-    const ride = await ridesModel
-      .findOne({ _id })
-      .populate("userid")
-      .lean();
+    const ride = await ridesModel.findOne({ _id }).populate("userid").lean();
 
     if (!ride) {
       throw new Error("Ride not found");
     }
 
-
     const profile = await riderModel.findOne({ userid: ride.userid }).lean();
-
-
 
     return {
       ...ride,
