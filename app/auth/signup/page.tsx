@@ -33,9 +33,11 @@ export default function SignupPage() {
     setUserData(data);
     const response = await axios.post("/api/otp", data);
     if (response.data.success) {
+      // window.alert("OTP Sent on Email");
       setOpen(true);
+    } else {
+      window.alert(response.data.message);
     }
-    // window.alert("OTP Sent on Email");
     setLoading(false);
   };
 

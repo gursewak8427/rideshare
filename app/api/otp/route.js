@@ -11,7 +11,10 @@ export const POST = async (req) => {
     const alreadyUser = await User.findOne({ email });
 
     if (alreadyUser) {
-      return NextResponse.json({ message: "User already exists", success: false });
+      return NextResponse.json({
+        message: "User already exists",
+        success: false,
+      });
     }
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -55,7 +58,7 @@ export const POST = async (req) => {
       expiredAt: Date.now() + 600 * 1000,
     });
 
-    return NextResponse.json({ message: "mail sent", success: true });
+    return NextResponse.json({ message: "Otp Sent on mail", success: true });
   } catch (error) {
     return NextResponse.json({
       message: error.message || "something went wrong",
