@@ -5,6 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 export default function SignupPage() {
   const {
@@ -13,6 +14,7 @@ export default function SignupPage() {
     watch,
     formState: { errors },
   } = useForm();
+
   const router = useRouter();
 
   const sp = useSearchParams();
@@ -33,7 +35,7 @@ export default function SignupPage() {
     if (response.data.success) {
       setOpen(true);
     }
-    window.alert(response?.data?.message);
+    // window.alert("OTP Sent on Email");
     setLoading(false);
   };
 
@@ -45,11 +47,11 @@ export default function SignupPage() {
     const otpInfo = { ...userData, otp: data?.otp };
     const response = await axios.post("/api/otp/verify", otpInfo);
     if (response.data.success) {
+      window.alert("Register successfully");
       router.replace(url ? `/auth/login?url=${url}` : "/auth/login");
       setOpen(false);
     }
     window.alert(response?.data?.message);
-    setOpen(false);
     setLoading(false);
   };
   // Validate confirm password matches password
@@ -171,19 +173,43 @@ export default function SignupPage() {
         } absolute left-0 right-0 bottom-0 top-0 flex justify-center items-center`}
       >
         <div className={`bg-white rounded-xl p-4`}>
+          <p className="text-sm w-full text-center mb-2">
+            A 4 Digit OTP has been sent on you email <br />
+            <b>
+              <i>{watch("email")}</i>
+            </b>
+            <br />
+            <span
+              className="text-orange-500 italic mt-2"
+              onClick={() => {
+                setOpen(false);
+                setLoading(false);
+              }}
+            >
+              Change Email
+            </span>
+          </p>
+          <br />
           <h2 className="font-semibold my-2">Enter the 4 digit OTP</h2>
           <form onSubmit={handleSubmit(onFormSubmit)}>
-            <input
-              className="pe-4 px-3 py-2 outline-none bg-gray-100"
-              type="number"
-              {...register("otp")}
-            />
-            <button
-              className="px-4 py-2 rounded-lg bg-blue-700 text-white"
-              type="submit"
-            >
-              {loading ? "Please wait..." : "Submit"}
-            </button>
+            <div className="flex gap-2">
+              <input
+                placeholder="X X X X"
+                className="rounded-lg border pe-4 px-3 py-2 outline-none bg-gray-100"
+                type="number"
+                {...register("otp")}
+              />
+              <button
+                className="px-4 py-2 flex items-center justify-center rounded-lg bg-blue-700 text-white"
+                type="submit"
+              >
+                {loading ? (
+                  <CircularProgress size={20} color="white" />
+                ) : (
+                  "Submit"
+                )}
+              </button>
+            </div>
           </form>
         </div>
       </div>

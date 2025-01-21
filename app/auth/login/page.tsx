@@ -23,7 +23,7 @@ export default function LoginPage() {
     if (response.data.success) {
       window.location.href = url || "/";
     } else {
-      alert("Invalid Credentials");
+      alert(response.data.message || "Something went wrong");
     }
   };
 

@@ -1,48 +1,48 @@
-import { NextResponse } from 'next/server'
-import User from '../../../../backend/models/users'
-const jwt = require('jsonwebtoken')
-import connectdb from '../../../../backend/config/db.config'
-export const POST = async req => {
+import { NextResponse } from "next/server";
+import User from "../../../../backend/models/users";
+const jwt = require("jsonwebtoken");
+import connectdb from "../../../../backend/config/db.config";
+export const POST = async (req) => {
   try {
-    await connectdb()
-    const { email, password } = await req.json()
+    await connectdb();
+    const { email, password } = await req.json();
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email });
 
     if (!user) {
       return NextResponse.json({
-        message: 'user not registered',
-        success: false
-      })
+        message: "Email Not Registered!",
+        success: false,
+      });
     }
 
     if (user.password != password) {
       return NextResponse.json({
-        message: 'wrong credentials',
-        success: false
-      })
+        message: "Password is wrong",
+        success: false,
+      });
     }
 
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-      expiresIn: '2d'
-    })
+      expiresIn: "2d",
+    });
 
     const res = NextResponse.json({
-      message: 'login successfull',
-      success: true
-    })
+      message: "Login successfull",
+      success: true,
+    });
 
-    res.cookies.set('rider-secret', token, {
+    res.cookies.set("rider-secret", token, {
       // httpOnly: true,
       secure: false,
-      maxAge: 60 * 60 * 24
-    })
+      maxAge: 60 * 60 * 24,
+    });
 
-    return res
+    return res;
   } catch (error) {
     return NextResponse.json({
-      message: error.message || 'something went wrong',
-      success: false
-    })
+      message: error.message || "something went wrong",
+      success: false,
+    });
   }
-}
+};
