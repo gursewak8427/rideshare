@@ -204,7 +204,7 @@ export default function SignupPage() {
                 type="submit"
               >
                 {loading ? (
-                  <CircularProgress size={20} color="white" />
+                  <CircularProgress size={20} className="text-white" />
                 ) : (
                   "Submit"
                 )}
