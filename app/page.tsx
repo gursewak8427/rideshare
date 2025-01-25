@@ -10,10 +10,14 @@ export default function page() {
     <div className="flex flex-col h-screen">
       {/* Main Content */}
       <main className="w-full flex flex-col items-center justify-start pt-5 min-h-[calc(100vh-140px)] px-4 gap-4">
-        <ToolbarWithLocation onLocationChange={() => {}} />
+        <ToolbarWithLocation onLocationChange={() => { }} />
+
+        <h1 className="text-xl text-blue-500 font-black">
+          ਧੰਨ ਧੰਨ ਬਾਬਾ ਦੀਪ ਸਿੰਘ ਜੀ ਸੰਸਾਰ ਸੇਵਾ ਦਲ (ਕੈਨੇਡਾ)
+        </h1>
         <img
           className="h-[400px] max-h-[50vh]"
-          src="https://rapidoride.com/wp-content/uploads/2024/04/rapido-ride-driver.png"
+          src="/cover-image.jpg"
           alt=""
         />
 

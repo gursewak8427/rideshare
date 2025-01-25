@@ -3,7 +3,7 @@ import SingleRideDetails from "../../_components/SingleRideDetails";
 const page = ({ params }) => {
   return (
     <>
-      <SingleRideDetails id={params?.id}></SingleRideDetails>
+      <SingleRideDetails isList={true} id={params?.id}></SingleRideDetails>
     </>
   );
 };

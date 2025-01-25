@@ -5,7 +5,7 @@ import React from "react";
 import BookingButton from "./BookingButton";
 import { FormattedDate, Time } from "./Time"
 
-const SingleRideDetails = async ({ id }: any) => {
+const SingleRideDetails = async ({ id, isList }: any) => {
   const data: any = await getRideDetails(id);
   console.log(data);
   return (
@@ -59,10 +59,12 @@ const SingleRideDetails = async ({ id }: any) => {
               <div className="w-16 h-16 rounded-full grid justify-center items-center bg-gray-400">
                 <PhoneCallIcon />
               </div>
-
-              <div>
-                <h1 className="font-bold">{data?.phoneNumber}</h1>
-              </div>
+              <div></div>
+              <h1 className="font-bold">
+                {isList ? `${data?.phoneNumber?.toString()?.charAt(0)}********${data?.phoneNumber.toString()?.charAt(data?.phoneNumber.length - 1)}` : data?.phoneNumber}
+              </h1>
+            </div>
+            {!isList && (
               <div className="ml-auto">
                 <a
                   className="bg-emerald-400 rounded-full px-3 py-1"
@@ -71,20 +73,21 @@ const SingleRideDetails = async ({ id }: any) => {
                   Call
                 </a>
               </div>
-            </div>
-            <div className="w-[100%] flex items-center gap-2">
-              <img
-                className="rounded-full  w-16 h-16 object-cover"
-                alt="..."
-                src={
-                  data?.vechileImage ||
-                  "https://img.freepik.com/premium-vector/gamer-steering-wheel-icon-cartoon-vector-esport-computer-cyber-digital_98402-58005.jpg"
-                }
-              />
-              <div>
-                <h1 className="font-bold">{data?.vehicleModel}</h1>
-                <p className="text-xs">{data?.vehicleNumber}</p>
-              </div>
+            )}
+          </div>
+          <div className="mt-5 w-[100%] flex items-center gap-2">
+            <img
+              className="rounded-full  w-16 h-16 object-cover"
+              alt="..."
+              src={
+                data?.vechileImage ||
+                "https://img.freepik.com/premium-vector/gamer-steering-wheel-icon-cartoon-vector-esport-computer-cyber-digital_98402-58005.jpg"
+              }
+            />
+            <div>
+              <h1 className="font-bold">{data?.vehicleModel}</h1>
+              <p className="text-xs">
+                {isList ? "****" : data?.vehicleNumber}</p>
             </div>
           </div>
         </div>

@@ -33,10 +33,18 @@ export default function RootLayout({
       >
         <Authlaoyut>
           <Header />
-          <div className="max-w-3xl pb-[100px] relative mx-auto">
+          <div className="max-w-3xl pb-[100px] min-h-[90vh] relative mx-auto">
             {children}
           </div>
           {/* Footer Navigation */}
+          <footer className="text-center mt-8">
+            <p>
+              &copy; {new Date().getFullYear()} Baba Deep Singh Ji Sanstar Sewa Dal. All Rights Reserved.
+            </p>
+            <p className="text-gray-700">
+              Visit us at <Link href="https://www.ridesewa.ca">ridesewa.ca</Link>
+            </p>
+          </footer>
         </Authlaoyut>
       </body>
     </html>
