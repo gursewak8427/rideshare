@@ -13,7 +13,7 @@ export default function page() {
         <ToolbarWithLocation onLocationChange={() => { }} />
 
         <h1 className="text-xl text-blue-500 font-black">
-          ਧੰਨ ਧੰਨ ਬਾਬਾ ਦੀਪ ਸਿੰਘ ਜੀ ਸੰਸਾਰ ਸੇਵਾ ਦਲ (ਕੈਨੇਡਾ)
+          ਧੰਨ ਧੰਨ ਬਾਬਾ ਦੀਪ ਸਿੰਘ ਜੀ ਸੰਤਸਰ ਸੇਵਾ ਦਲ (ਕੈਨੇਡਾ)
         </h1>
         <img
           className="h-[400px] max-h-[50vh]"
