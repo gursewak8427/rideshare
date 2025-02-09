@@ -96,7 +96,7 @@ export const POST = async (req) => {
                 <p>
                   &copy; {new Date().getFullYear()} Baba Deep Singh Ji Sanstar Sewa Dal. All Rights Reserved.
                 </p>
-                <p>Email: support@ridesewa.ca</p>
+                <p>Email: contact.ridesewa@gmail.com</p>
             </td>
         </tr>
     </table>
@@ -245,7 +245,7 @@ export const PATCH = async (req) => {
               <p>
                 &copy; {new Date().getFullYear()} Baba Deep Singh Ji Sanstar Sewa Dal. All Rights Reserved.
               </p>
-              <p>Email: support@ridesewa.ca</p>
+              <p>Email: contact.ridesewa@gmail.com</p>
           </td>
         </tr>
     </table >

@@ -28,7 +28,7 @@ export default () => {
             <h2 className="text-2xl font-semibold mb-2">6. Changes to Privacy Policy</h2>
             <p className="mb-2"><span className="font-semibold">6.1.</span> We may update this Privacy Policy as needed. Users will be notified of significant changes.</p>
             <p className="mb-4">
-                By using this Platform, you acknowledge and accept these terms. If you have any questions, please contact us at <span className="font-semibold">support@ridesewa.ca</span>
+                By using this Platform, you acknowledge and accept these terms. If you have any questions, please contact us at <span className="font-semibold">contact.ridesewa@gmail.com</span>
             </p>
         </div>
     );
