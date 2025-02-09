@@ -60,8 +60,26 @@ export const POST = async (req) => {
     rideid: rideid,
   });
 
+  const rideDetails = await ridesModel.findById(rideid);
+
+  if (!rideDetails) {
+    return NextResponse.json({
+      success: false,
+      message: "Ride not found",
+    });
+  }
+
+  let user2 = await usersModel.findById(rideDetails?.userid);
+
+  if (!user2) {
+    return NextResponse.json({
+      success: false,
+      message: "Driver not found",
+    });
+  }
+
   sendEmail({
-    email: user?.email,
+    email: user2?.email,
     subject: "You got a new Ride Booking",
     html: `<!DOCTYPE html>
 <html lang="en">
@@ -74,7 +92,9 @@ export const POST = async (req) => {
     <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
         <tr>
             <td style="padding: 20px; text-align: center; background-color: #007bff;">
-                <img src="${process?.env?.NEXT_PUBLIC_SERVER_URL}/logo.png" alt="Company Logo" style="max-width: 150px;">
+                <img src="${
+                  process?.env?.NEXT_PUBLIC_SERVER_URL
+                }/logo.png" alt="Company Logo" style="max-width: 150px;">
             </td>
         </tr>
         <tr>
@@ -84,7 +104,9 @@ export const POST = async (req) => {
                 <p style="color: #666666;">You have received a new booking. Please check your schedule and prepare for the upcoming ride.</p>
                 <p style="color: #666666;">To view all your bookings and get more details, click the button below:</p>
                 <p style="text-align: center;">
-                    <a href="${process?.env?.NEXT_PUBLIC_SERVER_URL}/myrides/${rideid}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px;">Check All Bookings</a>
+                    <a href="${
+                      process?.env?.NEXT_PUBLIC_SERVER_URL
+                    }/myrides/${rideid}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px;">Check All Bookings</a>
                 </p>
                 <p style="color: #666666;">If you have any questions or concerns, please don't hesitate to contact our support team.</p>
                 <p style="color: #666666;">Thank you for your service!</p>
