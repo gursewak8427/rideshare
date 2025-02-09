@@ -94,7 +94,7 @@ export const POST = async (req) => {
         <tr>
             <td style="padding: 20px; text-align: center; background-color: #f8f8f8; color: #888888;">
                 <p>
-                  &copy; {new Date().getFullYear()} Baba Deep Singh Ji Sanstar Sewa Dal. All Rights Reserved.
+                  &copy; ${new Date().getFullYear()} Baba Deep Singh Ji Sanstar Sewa Dal. All Rights Reserved.
                 </p>
                 <p>Email: contact.ridesewa@gmail.com</p>
             </td>
@@ -243,7 +243,7 @@ export const PATCH = async (req) => {
         <tr>
           <td style="padding: 20px; text-align: center; background-color: #f8f8f8; color: #888888;">
               <p>
-                &copy; {new Date().getFullYear()} Baba Deep Singh Ji Sanstar Sewa Dal. All Rights Reserved.
+                &copy; ${new Date().getFullYear()} Baba Deep Singh Ji Sanstar Sewa Dal. All Rights Reserved.
               </p>
               <p>Email: contact.ridesewa@gmail.com</p>
           </td>
