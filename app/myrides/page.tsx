@@ -23,6 +23,7 @@ const Page = () => {
 
   useEffect(() => {
     getMyRides();
+    console.log("hello")
   }, []);
 
   return (
@@ -42,8 +43,8 @@ const Page = () => {
                   {ride.routetype === "go"
                     ? `${ride.location} to Gurudwara Sahib`
                     : ride.routetype === "back"
-                    ? `Gurudwara Sahib to ${ride.location}`
-                    : "Invalid route type"}
+                      ? `Gurudwara Sahib to ${ride.location}`
+                      : "Invalid route type"}
                 </h1>
                 <p className="text-xs text-gray-600">
                   {/* Safe client-side datetime formatting */}

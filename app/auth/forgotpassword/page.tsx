@@ -101,9 +101,8 @@ export default function PasswordResetPage() {
                     id="email"
                     type="email"
                     autoComplete="email"
-                    className={`appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                      errors.email ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className={`appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.email ? "border-red-500" : "border-gray-300"
+                      }`}
                     {...register("email", {
                       required: "Email is required",
                       pattern: {
@@ -128,9 +127,8 @@ export default function PasswordResetPage() {
                   <input
                     id="otp"
                     type="text"
-                    className={`appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                      errors.otp ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className={`appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.otp ? "border-red-500" : "border-gray-300"
+                      }`}
                     {...register("otp", {
                       required: "OTP is required",
                       pattern: {
@@ -157,9 +155,8 @@ export default function PasswordResetPage() {
                       id="password"
                       type="password"
                       autoComplete="new-password"
-                      className={`appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                        errors.password ? "border-red-500" : "border-gray-300"
-                      }`}
+                      className={`appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.password ? "border-red-500" : "border-gray-300"
+                        }`}
                       {...register("password", {
                         required: "Password is required",
                         minLength: {
@@ -183,9 +180,8 @@ export default function PasswordResetPage() {
                       id="confirmPassword"
                       type="password"
                       autoComplete="new-password"
-                      className={`appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                        errors.confirmPassword ? "border-red-500" : "border-gray-300"
-                      }`}
+                      className={`appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.confirmPassword ? "border-red-500" : "border-gray-300"
+                        }`}
                       {...register("confirmPassword", {
                         required: "Please confirm your password",
                         validate: (value) =>
@@ -208,8 +204,8 @@ export default function PasswordResetPage() {
               >
                 {loading ? "Processing..." : (
                   step === "sendOTP" ? "Send OTP" :
-                  step === "verifyOTP" ? "Verify OTP" :
-                  "Reset Password"
+                    step === "verifyOTP" ? "Verify OTP" :
+                      "Reset Password"
                 )}
               </button>
             </div>
@@ -240,4 +236,3 @@ export default function PasswordResetPage() {
   );
 }
 
-    

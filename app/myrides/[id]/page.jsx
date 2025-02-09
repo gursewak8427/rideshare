@@ -7,7 +7,7 @@ const page = async ({ params }) => {
 
   return (
     <>
-      <RideDetails data={data}></RideDetails>
+      <RideDetails data={{ ...data, _id: data?._id?.toString(), }}></RideDetails>
     </>
   );
 };
