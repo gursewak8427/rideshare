@@ -93,9 +93,10 @@ export const POST = async (req) => {
         </tr>
         <tr>
             <td style="padding: 20px; text-align: center; background-color: #f8f8f8; color: #888888;">
-                <p>&copy; 2023 Your Company Name. All rights reserved.</p>
-                <p>123 Main Street, City, State, ZIP</p>
-                <p>Email: support@yourcompany.com | Phone: (123) 456-7890</p>
+                <p>
+                  &copy; {new Date().getFullYear()} Baba Deep Singh Ji Sanstar Sewa Dal. All Rights Reserved.
+                </p>
+                <p>Email: support@ridesewa.ca</p>
             </td>
         </tr>
     </table>
@@ -173,7 +174,6 @@ export const PATCH = async (req) => {
         success: false,
       });
     }
-
   }
 
   let bookingDetails = await bookingsModel.findByIdAndUpdate(bookingid, {
@@ -239,14 +239,15 @@ export const PATCH = async (req) => {
                 <p style="color: #666666;">Thank you for choosing our service!</p>
                 <p style="color: #666666;">Best regards,<br>Your Booking Team</p>
             </td >
-        </tr >
-  <tr>
-    <td style="padding: 20px; text-align: center; background-color: #f8f8f8; color: #888888;">
-      <p>&copy; 2023 Your Company Name. All rights reserved.</p>
-      <p>123 Main Street, City, State, ZIP</p>
-      <p>Email: support@yourcompany.com | Phone: (123) 456-7890</p>
-    </td>
-  </tr>
+        </tr>
+        <tr>
+          <td style="padding: 20px; text-align: center; background-color: #f8f8f8; color: #888888;">
+              <p>
+                &copy; {new Date().getFullYear()} Baba Deep Singh Ji Sanstar Sewa Dal. All Rights Reserved.
+              </p>
+              <p>Email: support@ridesewa.ca</p>
+          </td>
+        </tr>
     </table >
 </body >
 </html > `,

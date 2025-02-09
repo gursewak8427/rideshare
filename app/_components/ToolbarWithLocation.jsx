@@ -45,6 +45,7 @@ const ToolbarWithLocation = ({ onLocationChange, isSave = true }) => {
       );
       const data = await response.json();
       if (data.results.length > 0) {
+        console.log({ resultProper: data.results[0] })
         const formattedAddress = data.results[0].formatted_address;
         setAddress(formattedAddress);
         if (onLocationChange) onLocationChange(location);

@@ -25,7 +25,7 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [locationObj, setLocationObj] = useState<any>({ lat: -1, lng: -1 });
 
-  const handleLocationChange = ({ lat, lng }: any) => {};
+  const handleLocationChange = ({ lat, lng }: any) => { };
   // const findRide = async () => {
   //   let res = await axios.get("/api/rides");
   //   console.log({ data: res?.data });
