@@ -23,6 +23,13 @@ export const POST = async (req) => {
       });
     }
 
+    if (!user.status) {
+      return NextResponse.json({
+        message: "Sorry, You are blocked",
+        success: false,
+      });
+    }
+
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.SECRET_KEY,

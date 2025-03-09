@@ -2,13 +2,14 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import connectdb from "../../../backend/config/db.config";
+import User from "../../../backend/models/users"; // Assuming you have a User model
 
 export const GET = async (req) => {
   try {
     await connectdb();
 
-    const cookieStore = await cookies(); // No need for await here
-    const token = cookieStore.get("rider-secret")?.value;
+    const cookieStore = cookies(); // No need for await here
+    const token = await cookieStore.get("rider-secret")?.value;
 
     console.log({ token });
 
@@ -29,10 +30,12 @@ export const GET = async (req) => {
       );
     }
 
-    const { role } = decodedToken;
-    if (!role || role != "admin") {
+    const { userId } = decodedToken;
+
+    const user = await User.findById(userId);
+    if (!user || !user.status) {
       return NextResponse.json(
-        { message: "Unauthorized: Invalid user ID in token", success: false },
+        { message: "Unauthorized: User is not active", success: false },
         { status: 401 }
       );
     }
@@ -40,5 +43,10 @@ export const GET = async (req) => {
     return NextResponse.json({
       success: true,
     });
-  } catch (error) {}
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Internal Server Error", success: false },
+      { status: 500 }
+    );
+  }
 };

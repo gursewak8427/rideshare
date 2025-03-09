@@ -25,6 +25,7 @@ export default function LoginPage() {
       window.location.href = url || "/";
     } else {
       alert(response.data.message || "Something went wrong");
+      setLoading(false);
     }
   };
 
