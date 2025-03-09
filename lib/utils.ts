@@ -97,7 +97,7 @@ export const checkIsCancelValid = (datetime: any): boolean => {
   console.log({ timeLeftInHours });
 
   // Return true if time left is less than 1 hour and greater than 0
-  if(timeLeftInHours < 1) return false;
+  if (timeLeftInHours < 1) return false;
 
   return true;
 };
@@ -125,7 +125,13 @@ export const checkifRideisinPast = (datetime: any): boolean => {
   console.log({ timeLeftInHours });
 
   // Return true if time left is less than 1 hour and greater than 0
-  if(timeLeftInHours <0) return false;
+  if (timeLeftInHours < 0) return false;
 
   return true;
 };
+
+export function getTimestampFromObjectId(objectId: string) {
+  const hexTimestamp = objectId.substring(0, 8); // First 8 characters (4 bytes)
+  const timestamp = parseInt(hexTimestamp, 16); // Convert hex to decimal
+  return new Date(timestamp * 1000); // Convert seconds to milliseconds
+}

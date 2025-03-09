@@ -23,13 +23,20 @@ export const POST = async (req) => {
       });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-      expiresIn: "2d",
-    });
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: "2d",
+      }
+    );
 
     const res = NextResponse.json({
       message: "Login successfull",
       success: true,
+      data: {
+        user,
+      },
     });
 
     res.cookies.set("rider-secret", token, {

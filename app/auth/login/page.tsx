@@ -20,6 +20,7 @@ export default function LoginPage() {
     e.preventDefault();
     // Handle login logic here
     const response = await axios.post("/api/users/login", { email, password });
+    console.log(response.data);
     if (response.data.success) {
       window.location.href = url || "/";
     } else {

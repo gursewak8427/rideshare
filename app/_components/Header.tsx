@@ -38,6 +38,10 @@ const Header = () => {
     Boolean(userProfile?.phoneNumber) &&
     Boolean(userProfile?.username);
 
+  if(path.startsWith("/admin")){
+    return <></>
+  }
+
   return (
     <header className="flex items-center justify-between px-4 py-3 bg-white shadow-md">
       <div className="max-w-3xl flex items-center justify-between w-full mx-auto">
